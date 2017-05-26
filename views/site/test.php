@@ -46,7 +46,7 @@ $descriptions = array(
 
     <!-- Open Graph Protocol Tags -->
     <?php if ($symbol = Yii::$app->request->get('symbol')): ?>
-        <meta property="og:title" content="Мой психологический портрет - <?php echo $names[$symbol]; ?>"
+        <meta property="og:title" content="<?= Yii::t('app', 'My psychological portrait')?> - <?php echo $names[$symbol]; ?>"
               metaproperty="title">
         <meta property="og:image" content="http://urway.kz/testing/avatars/<?php echo $symbol; ?>.jpg"
               metaproperty="image">
@@ -57,29 +57,8 @@ $descriptions = array(
     <link href="http://maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet">
     <!-- <link href='https://fonts.googleapis.com/css?family=Ubuntu+Condensed&subset=latin,cyrillic' rel='stylesheet' type='text/css'> -->
     <link href='/css/style.css' rel='stylesheet' type='text/css'>
-    <script src='https://ajax.googleapis.com/ajax/libs/jquery/1.12.2/jquery.min.js'></script>
-    <script src='https://ajax.googleapis.com/ajax/libs/angularjs/1.2.16/angular.min.js'></script>
-    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.16/angular-route.js"></script>
-    <script src='/js/testing.js'></script>
-    <script type="text/javascript" src="http://vk.com/js/api/share.js?90" charset="windows-1251"></script>
-    <script>
-        (function (i, s, o, g, r, a, m) {
-            i['GoogleAnalyticsObject'] = r;
-            i[r] = i[r] || function () {
-                    (i[r].q = i[r].q || []).push(arguments)
-                }, i[r].l = 1 * new Date();
-            a = s.createElement(o),
-                m = s.getElementsByTagName(o)[0];
-            a.async = 1;
-            a.src = g;
-            m.parentNode.insertBefore(a, m)
-        })(window, document, 'script', 'https://www.google-analytics.com/analytics.js', 'ga');
-
-        ga('create', 'UA-80077141-1', 'auto');
-        ga('send', 'pageview');
-
-    </script>
 </head>
+<body>
 <div>
     <header class="footer">
         <center>
@@ -97,7 +76,7 @@ $descriptions = array(
                 <div ng-bind-html="renderHtml(description)" style="padding: 0 50px; text-align: center"></div>
                 <div class="row">
                     <button class="startButton" ng-click="testStarted=!testStarted">
-                        Начать тест<i class="fa fa-play-circle icon"></i>
+                        <?= Yii::t('app', 'Start the test')?><i class="fa fa-play-circle icon"></i>
                     </button>
                 </div>
             </div>
@@ -127,12 +106,12 @@ $descriptions = array(
                     </li>
                 </ul>
                 <div class="row">
-                    <button class="backButton" ng-click="back()"><i class="fa fa-arrow-left icon"></i>Назад</button>
+                    <button class="backButton" ng-click="back()"><i class="fa fa-arrow-left icon"></i><?= Yii::t('app', 'Back')?></button>
                     <button class="nextButton" ng-click="counter = counter + 1"
                             ng-disabled="answers[counter].answer==undefined" ng-hide="counter+1==questionsCount">
-                        Дальше<i class="fa fa-arrow-right icon"></i></button>
+                        <?= Yii::t('app', 'Next')?><i class="fa fa-arrow-right icon"></i></button>
                     <button class="finishButton" ng-click="finish()" ng-disabled="answers[counter].answer==undefined"
-                            ng-show="counter+1==questionsCount">Завершить<i class="fa fa-check-circle icon"></i>
+                            ng-show="counter+1==questionsCount"><?= Yii::t('app', 'Complete')?><i class="fa fa-check-circle icon"></i>
                     </button>
                 </div>
             </form>
@@ -151,48 +130,49 @@ $descriptions = array(
                 </p>
 
                 <p>
-                    <span class="text-bold">Для получения подробного результата по Вашему типу личности,</span><br/>
-                    Вам необходимо пройти
+                    <span class="text-bold"><?= Yii::t('app', 'For a detailed result on your personality type,')?></span><br/>
+                    <?= Yii::t('app', 'You need to pass')?>
                 </p>
                 <div class="row">
-                    <button class="nextTestButton" ng-click="nextStage()">Основной тест</button>
+                    <button class="nextTestButton" ng-click="nextStage()"><?= Yii::t('app', 'Basic test')?></button>
                 </div>
             </div>
 
             <div ng-if="stageEnded" class="text-center">
-                <p>Благодарим за прохождение полного теста</p>
-                <p>Пожалуйста, введите своё имя, e-mail, проплатите тест и получите свой результат на e-mail.</p>
+                <p><?= Yii::t('app', 'Thank you for completing the complete test')?></p>
+                <p><?= Yii::t('app', 'Please enter your name, e-mail, pay the test and get your result by e-mail.')?></p>
                 <form>
                     <div class="form-group">
-                        <label for="form-name">Имя:</label>
+                        <label for="form-name"><?= Yii::t('app', 'Name:')?></label>
                         <input type="text" id="form-name" class="form-control">
                     </div>
                     <div class="form-group">
-                        <label for="form-email">E-mail:</label>
+                        <label for="form-email"><?= Yii::t('app', 'E-mail:')?></label>
                         <input type="email" id="form-email" class="form-control">
                     </div>
                     <div class="form-group">
-                        <label for="form-form-email-repeat">Повторите e-mail:</label>
+                        <label for="form-form-email-repeat"><?= Yii::t('app', 'Repeat e-mail:')?></label>
                         <input type="email" id="form-email-repeat" class="form-control">
                     </div>
-                    <button type="submit" class="btn btn-default">Перейти к оплате</button>
+                    <p><?= Yii::t('app', 'The payment is 990 tenge')?></p>
+                    <button type="submit" class="btn btn-default"><?= Yii::t('app', 'Proceed to checkout')?></button>
                 </form>
             </div>
         </div>
     </div>
     <footer class="footer">
         <div id="vk_temp" style="display:-webkit-inline-box;">
-            <a ng-show="testEnded" target="_blank" title="Поделиться"
+            <a ng-show="testEnded" target="_blank" title="<?= Yii::t('app', 'Share')?>"
                href="http://www.facebook.com/sharer.php?u=http%3A%2F%2Fwww.urway.kz%2Ftest.php%3Fsymbol%3D{{tableSymbol}}"><img
                         style="height:21px; margin-right:10px;" src="/img/facebook_ru.png"></a>
-            <a ng-show="!testEnded" target="_blank" title="Поделиться"
+            <a ng-show="!testEnded" target="_blank" title="<?= Yii::t('app', 'Share')?>"
                href="http://www.facebook.com/sharer.php?u=http%3A%2F%2Fwww.urway.kz%2F"><img
                         style="height:21px; margin-right:10px;" src="/img/facebook_ru.png"></a>
             <div ng-show="!testEnded">
                 <script type="text/javascript">
                     document.write(VK.Share.button({
                         url: 'http://www.urway.kz/',
-                    }, {type: 'round', text: 'Поделиться'}));
+                    }, {type: 'round', text: '<?= Yii::t('app', 'Share')?>'}));
                 </script>
             </div>
         </div>
@@ -200,12 +180,34 @@ $descriptions = array(
             function showVk(value) {
                 $('#vk_temp').append(VK.Share.button({
                     url: 'http://www.urway.kz/test.php?symbol=' + value,
-                }, {type: 'round', text: 'Поделиться'}));
+                }, {type: 'round', text: '<?= Yii::t('app', 'Share')?>'}));
                 return;
             }
         </script>
     </footer>
 </div>
 
+<script src='/js/jquery.min.js'></script>
+<script src='/js/angular.min.js'></script>
+<script src="/js/angular-route.js"></script>
+<script src='/js/testing.js'></script>
+<script type="text/javascript" src="http://vk.com/js/api/share.js?90" charset="windows-1251"></script>
+<script>
+    (function (i, s, o, g, r, a, m) {
+        i['GoogleAnalyticsObject'] = r;
+        i[r] = i[r] || function () {
+                (i[r].q = i[r].q || []).push(arguments)
+            }, i[r].l = 1 * new Date();
+        a = s.createElement(o),
+            m = s.getElementsByTagName(o)[0];
+        a.async = 1;
+        a.src = g;
+        m.parentNode.insertBefore(a, m)
+    })(window, document, 'script', 'https://www.google-analytics.com/analytics.js', 'ga');
+
+    ga('create', 'UA-80077141-1', 'auto');
+    ga('send', 'pageview');
+
+</script>
 </body>
 </html>
