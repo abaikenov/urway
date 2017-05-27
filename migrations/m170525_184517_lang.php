@@ -14,7 +14,7 @@ class m170525_184517_lang extends Migration
 
         $this->createTable('{{%lang}}', [
             'id' => Schema::TYPE_PK,
-            'url' => Schema::TYPE_STRING . '(255) NOT NULL',
+            'title' => Schema::TYPE_STRING . '(255) NOT NULL',
             'local' => Schema::TYPE_STRING . '(255) NOT NULL',
             'name' => Schema::TYPE_STRING . '(255) NOT NULL',
             'short_name' => Schema::TYPE_STRING . '(255) NOT NULL',

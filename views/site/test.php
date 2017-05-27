@@ -1,4 +1,8 @@
 <?php
+use app\components\LangUrlManager;
+use app\models\Lang;
+use yii\helpers\Url;
+
 $names = array(
     'ISTJ' => 'Максим Горький',
     'ISTP' => 'Габен',
@@ -43,7 +47,7 @@ $descriptions = array(
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width">
     <meta charset=utf-8>
-
+    <title>Тест</title>
     <!-- Open Graph Protocol Tags -->
     <?php if ($symbol = Yii::$app->request->get('symbol')): ?>
         <meta property="og:title" content="<?= Yii::t('app', 'My psychological portrait')?> - <?php echo $names[$symbol]; ?>"
@@ -54,7 +58,7 @@ $descriptions = array(
               metaproperty="description">
     <?php endif; ?>
 
-    <link href="http://maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet">
+    <link href="/css/font-awesome.min.css" rel="stylesheet">
     <!-- <link href='https://fonts.googleapis.com/css?family=Ubuntu+Condensed&subset=latin,cyrillic' rel='stylesheet' type='text/css'> -->
     <link href='/css/style.css' rel='stylesheet' type='text/css'>
 </head>
@@ -62,7 +66,7 @@ $descriptions = array(
 <div>
     <header class="footer">
         <center>
-            <a href="<?= \yii\helpers\Url::base()?>" target="_self"
+            <a href="<?= Yii::$app->getHomeUrl().Lang::getCurrent()->url.'/'?>" target="_self"
                style="text-decoration: none; color:#f39c12; size: 48px;">
                 <h2>URWAY.KZ</h2>
             </a>
@@ -129,7 +133,7 @@ $descriptions = array(
                     {{results[tableSymbol].content}}
                 </p>
 
-                <p>
+                <p style="text-decoration: underline">
                     <span class="text-bold"><?= Yii::t('app', 'For a detailed result on your personality type,')?></span><br/>
                     <?= Yii::t('app', 'You need to pass')?>
                 </p>
@@ -161,6 +165,7 @@ $descriptions = array(
         </div>
     </div>
     <footer class="footer">
+        <div style="margin-bottom: 10px"><?= Yii::t('app', 'Tell a friend about the test')?>:</div>
         <div id="vk_temp" style="display:-webkit-inline-box;">
             <a ng-show="testEnded" target="_blank" title="<?= Yii::t('app', 'Share')?>"
                href="http://www.facebook.com/sharer.php?u=http%3A%2F%2Fwww.urway.kz%2Ftest.php%3Fsymbol%3D{{tableSymbol}}"><img

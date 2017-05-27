@@ -47,8 +47,8 @@ return [
     'Back' => 'Назад',
     'Next' => 'Дальше',
     'Complete' => 'Завершить',
-    'For a detailed result on your personality type,' => 'Для получения подробного результата по Вашему типу личности,',
-    'You need to pass' => 'Вам необходимо пройти',
+    'For a detailed result on your personality type,' => 'Для того, чтобы получить развернутый результат по Опроснику,',
+    'You need to pass' => 'Вам необходимо пройти Основной ТЕСТ!',
     'Basic test' => 'Основной тест',
     'Thank you for completing the complete test' => 'Благодарим за прохождение полного теста',
     'Please enter your name, e-mail, pay the test and get your result by e-mail.' => 'Пожалуйста, введите своё имя, e-mail, проплатите тест и получите свой результат на e-mail.',
@@ -58,4 +58,5 @@ return [
     'The payment is 990 tenge' => 'Оплата состовляет 990 тенге',
     'Proceed to checkout' => 'Перейти к оплате',
     'Share' => 'Поделиться',
+    'Tell a friend about the test' => 'Рассказать о тесте друзьям',
 ];

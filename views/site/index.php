@@ -14,12 +14,13 @@ use yii\bootstrap\Html;
 
     <meta content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0' name='viewport'/>
     <meta name="viewport" content="width=device-width"/>
+    <meta property="og:title" content="asdasd" metaproperty="title">
     <meta property="og:image" content="/img/header.jpg">
     <meta property="og:description" content="<?= Yii::t('app', 'The test was developed by a group of psychologists to determine your vocation.')?>">
 
     <link href="/css/bootstrap.css" rel="stylesheet"/>
     <link href="/css/landing-page.css" rel="stylesheet"/>
-    <link href="http://maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet">
+    <link href="/css/font-awesome.min.css" rel="stylesheet">
 </head>
 
 <body class="landing-page">
@@ -283,7 +284,7 @@ use yii\bootstrap\Html;
             <div class="col-lg-8 col-lg-offset-2">
                 <p><?= Yii::t('app', 'Tell us about your friends through social networks.')?></p>
                 <div class="ya-share2"
-                     data-services="vkontakte,facebook,whatsapp,odnoklassniki,moimir,gplus,twitter,lj,pocket,surfingbird,tumblr"
+                     data-services="vkontakte,facebook,whatsapp"
                      data-size="m" data-limit="3"></div>
                 <p style="padding-top:0px;">
                     &copy; 2016 <a href="<?= \yii\helpers\Url::base() ?>">urway.kz</a>
