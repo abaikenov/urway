@@ -2,18 +2,14 @@
 
 namespace app\controllers;
 
+use app\components\payment\KkbPayment;
 use Yii;
 use app\models\Order;
 use yii\data\ActiveDataProvider;
 use yii\filters\AccessControl;
 use yii\web\Controller;
-use yii\web\NotFoundHttpException;
-use yii\filters\VerbFilter;
 use yii\web\Response;
 
-/**
- * OrderController implements the CRUD actions for Order model.
- */
 class OrderController extends Controller
 {
     /**
@@ -41,14 +37,18 @@ class OrderController extends Controller
         return parent::beforeAction($action);
     }
 
-    /**
-     * Lists all Order models.
-     * @return mixed
-     */
     public function actionIndex()
     {
         $dataProvider = new ActiveDataProvider([
             'query' => Order::find(),
+            'pagination' => [
+                'pageSize' => 10,
+            ],
+            'sort' => [
+                'defaultOrder' => [
+                    'date_create' => SORT_DESC,
+                ]
+            ],
         ]);
 
         return $this->render('index', [
@@ -56,61 +56,41 @@ class OrderController extends Controller
         ]);
     }
 
-    /**
-     * Displays a single Order model.
-     * @param integer $id
-     * @return mixed
-     */
-    public function actionView($id)
+    public function actionGet($id)
     {
-        return $this->render('view', [
-            'model' => $this->findModel($id),
-        ]);
+        Yii::$app->response->format = Response::FORMAT_JSON;
+        if($order = Order::findOne($id))
+            return Order::findOne($id);
+        else
+            return [];
     }
 
     public function actionCreate()
     {
         Yii::$app->response->format = Response::FORMAT_JSON;
 
-        if(Yii::$app->request->isPost) {
+        if (Yii::$app->request->isPost) {
             $name = Yii::$app->request->post('name');
             $email = Yii::$app->request->post('email');
+            $result = Yii::$app->request->post('result');
 
-            return $_POST;
-
+            $order = new Order();
+            $order->name = $name;
+            $order->email = $email;
+            $order->amount = 990;
+            $order->result = json_encode($result);
+            if ($order->validate() && $order->save()) {
+                $sign = KkbPayment::process_request($order->id, '398', $order->amount, \Yii::getAlias('@app') . '/paysys/config.txt');
+                return [
+                    'id' => $order->id,
+                    'sign' => $sign
+                ];
+            } else
+                return $order->errors;
         }
 
         return [
             'error' => 'Bad request'
         ];
-    }
-
-    /**
-     * Deletes an existing Order model.
-     * If deletion is successful, the browser will be redirected to the 'index' page.
-     * @param integer $id
-     * @return mixed
-     */
-    public function actionDelete($id)
-    {
-        $this->findModel($id)->delete();
-
-        return $this->redirect(['index']);
-    }
-
-    /**
-     * Finds the Order model based on its primary key value.
-     * If the model is not found, a 404 HTTP exception will be thrown.
-     * @param integer $id
-     * @return Order the loaded model
-     * @throws NotFoundHttpException if the model cannot be found
-     */
-    protected function findModel($id)
-    {
-        if (($model = Order::findOne($id)) !== null) {
-            return $model;
-        } else {
-            throw new NotFoundHttpException('The requested page does not exist.');
-        }
     }
 }

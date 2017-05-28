@@ -76,7 +76,7 @@ $descriptions = array(
         </center>
     </header>
     <div class="container filter-gradient blue">
-        <div class="content">
+        <div class="content" ng-if="!paymentEnd">
             <h1 class="text-bold">{{title}}</h1>
             <p ng-if="subtitle" class="tagline">{{subtitle}}</p>
             <div ng-hide="testStarted">
@@ -145,10 +145,11 @@ $descriptions = array(
                 </div>
             </div>
 
-            <div ng-if="!stageEnded" class="text-center">
+            <div ng-if="stageEnded" class="text-center">
                 <p><?= Yii::t('app', 'Thank you for completing the complete test')?></p>
                 <p><?= Yii::t('app', 'Please enter your name, e-mail, pay the test and get your result by e-mail.')?></p>
-                <form class="payment">
+                <form class="payment" action="https://testpay.kkb.kz/jsp/process/logon.jsp">
+                    <!-- https://epay.kkb.kz/jsp/process/logon.jsp -->
                     <div class="form-group">
                         <label for="form-name"><?= Yii::t('app', 'Name:')?></label>
                         <input type="text" id="form-name" class="form-control" ng-model="order.name" ng-required="true">
@@ -162,15 +163,20 @@ $descriptions = array(
                         <input type="email" id="form-email-repeat" class="form-control" ng-model="order.emailConfirm" ng-required="true">
                     </div>
                     <p><?= Yii::t('app', 'The payment is 990 tenge')?></p>
-                    <?php $content = KkbPayment::process_request('123', '398', 990, \Yii::getAlias('@app').'/paysys/config.txt'); ?>
-                    <?= Html::hiddenInput('Signed_Order_B64', $content) ?>
-                    <?= Html::hiddenInput('Language', 'rus') ?>
-                    <?= Html::hiddenInput('BackLink', Url::current([], true)) ?>
-                    <?= Html::hiddenInput('FailureLink', Url::current([], true)) ?>
-                    <?= Html::hiddenInput('PostLink', Url::toRoute('/post-link', true)) ?>
-                    <button type="submit" ng-click="payment(order)" class="startButton"><?= Yii::t('app', 'Proceed to checkout')?></button>
+                    <input type="hidden" name="Signed_Order_B64"/>
+                    <input type="hidden" name="Language" value="rus"/>
+                    <input type="hidden" name="BackLink" value="<?= Url::to(['test'], true)?>"/>
+                    <input type="hidden" name="FailureLink" value="<?= Url::to(['test'], true)?>"/>
+                    <input type="hidden" name="PostLink" value="<?= Url::to('/post-link', true)?>"/>
+                    <button type="button" ng-click="payment(order)" class="startButton"><?= Yii::t('app', 'Proceed to checkout')?></button>
                 </form>
             </div>
+        </div>
+        <div class="content" ng-if="paymentEnd" style="text-align: center">
+            <h1 class="text-bold"><?= Yii::t('app', 'TEST')?></h1>
+            <p class="tagline"><?= Yii::t('app', '«ВАШЕ ПРИЗВАНИЕ»')?></p>
+            <p><?= Yii::t('app', 'Оплата прошла успешна!')?></p>
+            <p><?= Yii::t('app', 'Результат тестирования был отправлен на указанную Вами почту!')?></p>
         </div>
     </div>
     <footer class="footer">
@@ -203,6 +209,7 @@ $descriptions = array(
 
 <script src='/js/jquery.min.js'></script>
 <script src='/js/angular.min.js'></script>
+<script src='/js/angular-cookies.min.js'></script>
 <script src="/js/angular-route.js"></script>
 <script src='/js/testing.js'></script>
 <script type="text/javascript" src="http://vk.com/js/api/share.js?90" charset="windows-1251"></script>

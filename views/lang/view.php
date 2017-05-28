@@ -33,9 +33,9 @@ $this->params['breadcrumbs'][] = $this->title;
             'local',
             'name',
             'short_name',
-            'default',
-            'date_update',
-            'date_create',
+            'default:boolean',
+            'date_update:datetime',
+            'date_create:datetime',
         ],
     ]) ?>
 

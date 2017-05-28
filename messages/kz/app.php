@@ -56,4 +56,9 @@ return [
     'The payment is 990 tenge' => 'Жауаптын қуны 990 тенге',
     'Proceed to checkout' => 'Телеу',
     'Share' => 'Өз ойыңызбен бөлісіңіз',
+    'Tell a friend about the test' => 'Тест туралы достарыңызға айтыңыз',
+    'TEST' => 'ТЕСТ',
+    '«YOUR VOICE»' => '«Сіздің призвание»',
+    'Payment was successful!' => 'Төлем табысты аяқталды!',
+    'The result of testing was sent to the mail you specified!' => 'Сынақ нәтижесі сіздің электрондық поштаңызға жіберілді!',
 ];

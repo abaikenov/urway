@@ -17,7 +17,10 @@ class m170528_171030_order extends Migration
             'name' => Schema::TYPE_STRING . '(255) NOT NULL',
             'email' => Schema::TYPE_STRING . '(255) NOT NULL',
             'amount' => Schema::TYPE_INTEGER . ' NOT NULL',
-            'created_at' => Schema::TYPE_DATETIME . ' NOT NULL',
+            'is_paid' => Schema::TYPE_BOOLEAN . ' DEFAULT FALSE',
+            'result' => Schema::TYPE_TEXT . ' NOT NULL',
+            'date_update' => Schema::TYPE_INTEGER . ' NOT NULL',
+            'date_create' => Schema::TYPE_INTEGER . ' NOT NULL',
         ], $tableOptions);
     }
 

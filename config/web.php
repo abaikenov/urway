@@ -62,6 +62,14 @@ $config = [
                 ],
             ],
         ],
+        'formatter' => [
+            'class' => 'yii\i18n\Formatter',
+            'locale' => 'ru', //ej. 'es-ES'
+            'thousandSeparator' => '.',
+            'decimalSeparator' => ',',
+            'currencyCode' => 'KZT',
+
+        ],
     ],
     'params' => $params,
 ];

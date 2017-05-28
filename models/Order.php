@@ -10,8 +10,11 @@ use Yii;
  * @property integer $id
  * @property string $name
  * @property string $email
+ * @property integer $is_paid
  * @property integer $amount
- * @property string $created_at
+ * @property string $result
+ * @property integer $date_update
+ * @property integer $date_create
  */
 class Order extends \yii\db\ActiveRecord
 {
@@ -23,15 +26,28 @@ class Order extends \yii\db\ActiveRecord
         return 'order';
     }
 
+    public function behaviors()
+    {
+        return [
+            'timestamp' => [
+                'class' => 'yii\behaviors\TimestampBehavior',
+                'attributes' => [
+                    \yii\db\ActiveRecord::EVENT_BEFORE_INSERT => ['date_create', 'date_update'],
+                    \yii\db\ActiveRecord::EVENT_BEFORE_UPDATE => ['date_update'],
+                ],
+            ],
+        ];
+    }
+
     /**
      * @inheritdoc
      */
     public function rules()
     {
         return [
-            [['id', 'name', 'email', 'amount'], 'required'],
-            [['id', 'amount'], 'integer'],
-            [['created_at'], 'safe'],
+            [['name', 'email', 'amount', 'result'], 'required'],
+            [['is_paid', 'amount', 'date_update', 'date_create'], 'integer'],
+            [['result'], 'safe'],
             [['name', 'email'], 'string', 'max' => 255],
         ];
     }
@@ -45,8 +61,10 @@ class Order extends \yii\db\ActiveRecord
             'id' => Yii::t('app', 'ID'),
             'name' => Yii::t('app', 'Name'),
             'email' => Yii::t('app', 'Email'),
+            'is_paid' => Yii::t('app', 'Is Paid'),
             'amount' => Yii::t('app', 'Amount'),
-            'created_at' => Yii::t('app', 'Created At'),
+            'date_update' => Yii::t('app', 'Date Update'),
+            'date_create' => Yii::t('app', 'Date Create'),
         ];
     }
 }

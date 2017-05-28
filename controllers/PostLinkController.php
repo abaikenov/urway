@@ -2,19 +2,9 @@
 
 namespace app\controllers;
 
-use app\actions\SubmitFormAction;
-use app\backend\models\Rent;
-use app\components\C;
 use app\components\payment\KkbPayment;
-use app\modules\core\components\MailComponent;
-use app\modules\shop\models\Category;
-use app\modules\shop\models\Order;
-use app\modules\shop\models\OrderTransaction;
-use app\modules\shop\models\Product;
-use app\models\Search;
-use app\modules\seo\behaviors\MetaBehavior;
+use app\models\Order;
 use Yii;
-use yii\helpers\Url;
 use yii\web\Controller;
 use yii\web\Response;
 
@@ -40,9 +30,11 @@ class PostLinkController extends Controller
             if (in_array("ERROR", $result)) {
             };
             if (in_array("DOCUMENT", $result)) {
-                $rent = Rent::find()->where(['hash' => $result['ORDER_ORDER_ID'], 'total' => $result['PAYMENT_AMOUNT']])->one();
-                if(null != $rent) {
-                    $rent->toUse();
+                /** @var Order $order */
+                $order = Order::find()->where(['id' => intval($result['ORDER_ORDER_ID']), 'amount' => $result['PAYMENT_AMOUNT']])->one();
+                if(null != $order) {
+                    $order->is_paid = 1;
+                    $order->save();
                 }
             };
         }
