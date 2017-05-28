@@ -1,6 +1,8 @@
 <?php
 use app\components\LangUrlManager;
+use app\components\payment\KkbPayment;
 use app\models\Lang;
+use yii\bootstrap\Html;
 use yii\helpers\Url;
 
 $names = array(
@@ -58,6 +60,7 @@ $descriptions = array(
               metaproperty="description">
     <?php endif; ?>
 
+    <link href="/css/bootstrap.css" rel="stylesheet"/>
     <link href="/css/font-awesome.min.css" rel="stylesheet">
     <!-- <link href='https://fonts.googleapis.com/css?family=Ubuntu+Condensed&subset=latin,cyrillic' rel='stylesheet' type='text/css'> -->
     <link href='/css/style.css' rel='stylesheet' type='text/css'>
@@ -77,7 +80,7 @@ $descriptions = array(
             <h1 class="text-bold">{{title}}</h1>
             <p ng-if="subtitle" class="tagline">{{subtitle}}</p>
             <div ng-hide="testStarted">
-                <div ng-bind-html="renderHtml(description)" style="padding: 0 50px; text-align: center"></div>
+                <div ng-bind-html="renderHtml(description)" style="text-align: center"></div>
                 <div class="row">
                     <button class="startButton" ng-click="testStarted=!testStarted">
                         <?= Yii::t('app', 'Start the test')?><i class="fa fa-play-circle icon"></i>
@@ -92,7 +95,7 @@ $descriptions = array(
                         </b>
                     </p>
                 </div>
-                <p ng-if="questions[counter]" class="text-center" style="padding: 0 50px;">{{questions[counter]}}</p>
+                <p ng-if="questions[counter]" class="text-center">{{questions[counter]}}</p>
                 <ul class="answerList">
                     <li class="answerItem">
                         <label>
@@ -120,16 +123,16 @@ $descriptions = array(
                 </div>
             </form>
             <div ng-if="testEnded && !stage" class="text-center">
-                <p style="padding: 0 50px;">
+                <p>
                     <img src="/img/avatars/{{tableSymbol}}.jpg" style="width: 100%;"/>
                 </p>
                 <p class="text-bold">
                     {{results[tableSymbol].name}}
                 </p>
-                <p style="padding: 0 50px;">
+                <p>
                     - {{results[tableSymbol].description}}
                 </p>
-                <p style="padding: 0 50px;">
+                <p>
                     {{results[tableSymbol].content}}
                 </p>
 
@@ -142,24 +145,30 @@ $descriptions = array(
                 </div>
             </div>
 
-            <div ng-if="stageEnded" class="text-center">
+            <div ng-if="!stageEnded" class="text-center">
                 <p><?= Yii::t('app', 'Thank you for completing the complete test')?></p>
                 <p><?= Yii::t('app', 'Please enter your name, e-mail, pay the test and get your result by e-mail.')?></p>
-                <form>
+                <form class="payment">
                     <div class="form-group">
                         <label for="form-name"><?= Yii::t('app', 'Name:')?></label>
-                        <input type="text" id="form-name" class="form-control">
+                        <input type="text" id="form-name" class="form-control" ng-model="order.name" ng-required="true">
                     </div>
                     <div class="form-group">
                         <label for="form-email"><?= Yii::t('app', 'E-mail:')?></label>
-                        <input type="email" id="form-email" class="form-control">
+                        <input type="email" id="form-email" class="form-control" ng-model="order.email" ng-required="true">
                     </div>
                     <div class="form-group">
                         <label for="form-form-email-repeat"><?= Yii::t('app', 'Repeat e-mail:')?></label>
-                        <input type="email" id="form-email-repeat" class="form-control">
+                        <input type="email" id="form-email-repeat" class="form-control" ng-model="order.emailConfirm" ng-required="true">
                     </div>
                     <p><?= Yii::t('app', 'The payment is 990 tenge')?></p>
-                    <button type="submit" class="btn btn-default"><?= Yii::t('app', 'Proceed to checkout')?></button>
+                    <?php $content = KkbPayment::process_request('123', '398', 990, \Yii::getAlias('@app').'/paysys/config.txt'); ?>
+                    <?= Html::hiddenInput('Signed_Order_B64', $content) ?>
+                    <?= Html::hiddenInput('Language', 'rus') ?>
+                    <?= Html::hiddenInput('BackLink', Url::current([], true)) ?>
+                    <?= Html::hiddenInput('FailureLink', Url::current([], true)) ?>
+                    <?= Html::hiddenInput('PostLink', Url::toRoute('/post-link', true)) ?>
+                    <button type="submit" ng-click="payment(order)" class="startButton"><?= Yii::t('app', 'Proceed to checkout')?></button>
                 </form>
             </div>
         </div>

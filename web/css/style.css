@@ -55,6 +55,7 @@ p {
 
 .content {
     background: #fff;
+    padding: 0 50px;
 }
 
 /* logo */
@@ -304,4 +305,17 @@ footer a {
 
 .text-bold {
     font-weight: 700;
+}
+
+form.payment input {
+    width: 250px;
+    margin: 0 auto;
+}
+
+form.payment button {
+    background: #f39c12;
+}
+
+form.payment button:hover {
+    background: #D68B13;
 }

@@ -178,12 +178,10 @@ app.controller('testingController', ['$http', '$scope', '$location', '$sce', fun
         if ($location.search().symbol) {
             $scope.tableSymbol = $location.search().symbol;
         }
-
-
         console.log($scope.tableSymbol);
     };
 
-    var initStage = function(stage) {
+    var initStage = function (stage) {
         console.log('Init stage: ' + stage);
         var test = allTests[stage];
         $scope.stage = stage;
@@ -199,7 +197,7 @@ app.controller('testingController', ['$http', '$scope', '$location', '$sce', fun
         $scope.questions = test.questions;
         $scope.answers = test.answers;
         $scope.results = test.results;
-    }
+    };
 
     // $scope.questions = [
     //     {
@@ -410,7 +408,7 @@ app.controller('testingController', ['$http', '$scope', '$location', '$sce', fun
     };
 
     $scope.finish = function () {
-        switch($scope.stage) {
+        switch ($scope.stage) {
             case 0:
                 // console.log("finish");
                 // getTableCode();
@@ -454,7 +452,7 @@ app.controller('testingController', ['$http', '$scope', '$location', '$sce', fun
         ;
         console.log(more);
         return more > 0 ? a : b;
-    }
+    };
 
     $scope.nextStage = function () {
         initStage($scope.stage + 1);
@@ -462,6 +460,27 @@ app.controller('testingController', ['$http', '$scope', '$location', '$sce', fun
 
     $scope.renderHtml = function (htmlCode) {
         return $sce.trustAsHtml(htmlCode);
+    };
+
+    $scope.order = {
+        name: 'Amirlan',
+        email: 'Ami0790@gmail.com',
+        emailConfirm: 'Ami0790@gmail.com'
+    };
+
+    $scope.payment = function (order) {
+        console.log(order);
+        if(order.email !== order.emailConfirm) {
+            alert('Email-ы должны совпадать');
+        } else {
+            $.ajax({
+                method: 'POST',
+                url: '/order/create',
+                data: order
+            }).then(function (response) {
+                console.log(response);
+            });
+        }
     };
 
     // $scope.finish();
