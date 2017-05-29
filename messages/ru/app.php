@@ -77,4 +77,11 @@ return [
     'Update {modelClass}: ' => 'Обновить {modelClass}: ',
     'Langs' => 'Языки',
     'Create Lang' => 'Добавить язык',
+    'Tests' => 'Тесты',
+    'Create Test' => 'Добавить тест',
+    'Title' => 'Заголовок',
+    'Subtitle' => 'Подзаголовок',
+    'Description' => 'Описание',
+    'Content' => 'Содержимое',
+    'Questions Count' => 'Количество вопросов',
 ];

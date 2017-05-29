@@ -1,0 +1,67 @@
+<?php
+
+use app\models\Lang;
+use vova07\imperavi\Widget;
+use yii\bootstrap\ActiveForm;
+use yii\helpers\Html;
+
+/* @var $this yii\web\View */
+/* @var $model app\models\Test */
+
+$this->title = Yii::t('app', 'Update {modelClass}: ', [
+        'modelClass' => 'Тест',
+    ]) . $model->name->title;
+$this->params['breadcrumbs'][] = ['label' => Yii::t('app', 'Tests'), 'url' => ['index']];
+$this->params['breadcrumbs'][] = ['label' => $model->name->title, 'url' => ['view', 'id' => $model->id]];
+$this->params['breadcrumbs'][] = Yii::t('app', 'Update');
+?>
+<div class="test-update">
+
+    <h1><?= Html::encode($this->title) ?></h1>
+
+    <div class="test-form">
+
+        <?php $form = ActiveForm::begin(); ?>
+        <!-- Nav tabs -->
+        <ul class="nav nav-tabs" role="tablist">
+            <?php /** @var \app\models\Lang $lang */
+            foreach (Lang::find()->all() as $lang):?>
+                <li role="presentation" <?= Lang::getDefaultLang()->id === $lang->id ? 'class="active"' : '' ?>><a
+                            href="#lang<?= $lang->id ?>" aria-controls="lang<?= $lang->id ?>" role="tab"
+                            data-toggle="tab"><?= $lang->name ?></a></li>
+            <?php endforeach; ?>
+        </ul>
+
+        <!-- Tab panes -->
+        <div class="tab-content" style="padding: 15px 0">
+            <?php /** @var \app\models\Lang $lang */
+            foreach (Lang::find()->all() as $lang):?>
+                <div role="tabpanel" class="tab-pane <?= Lang::getDefaultLang()->id === $lang->id ? 'active' : '' ?>"
+                     id="lang<?= $lang->id ?>">
+                    <?php /** @var \app\models\TestName $name */
+                    foreach ($model->names as $name):?>
+                        <?php if ($name->lang_id === $lang->id): ?>
+                            <?= $form->field($name, '[' . $name->id . ']title')->textInput() ?>
+                            <?= $form->field($name, '[' . $name->id . ']subtitle')->textInput() ?>
+                            <?= $form->field($name, '[' . $name->id . ']description')->widget(Widget::className(), [
+                                'settings' => [
+                                    'lang' => 'ru',
+                                    'minHeight' => 200,
+                                    'plugins' => [
+                                        'fullscreen'
+                                    ]
+                                ]
+                            ]); ?>
+                        <?php endif; ?>
+                    <?php endforeach; ?>
+                </div>
+            <?php endforeach; ?>
+        </div>
+        <div class="form-group">
+            <?= Html::submitButton($model->isNewRecord ? Yii::t('app', 'Create') : Yii::t('app', 'Update'), ['class' => $model->isNewRecord ? 'btn btn-success' : 'btn btn-primary']) ?>
+        </div>
+
+        <?php ActiveForm::end(); ?>
+
+    </div>
+</div>
