@@ -31,10 +31,45 @@ class PostLinkController extends Controller
             };
             if (in_array("DOCUMENT", $result)) {
                 /** @var Order $order */
-                $order = Order::find()->where(['id' => intval($result['ORDER_ORDER_ID']), 'amount' => $result['PAYMENT_AMOUNT']])->one();
+                $order = Order::find()->where(['id' => intval($result['ORDER_ORDER_ID']), 'amount' => $result['PAYMENT_AMOUNT'], 'is_paid' => false])->one();
                 if(null != $order) {
-                    $order->is_paid = 1;
-                    $order->save();
+                    $resultKeys = [];
+
+                    foreach (json_decode($order->result) as $testId => $result) {
+
+                        switch ($testId + 1) {
+                            case 1:
+                                // первый тест
+                                $types = [1 => 0, 2 => 0, 3 => 0, 4 => 0, 5 => 0];
+                                foreach ($result as $key => $value) {
+                                    if($value->answer === "true") {
+                                        $k = ($key + 1) % 5;
+                                        if($k > 0) {
+                                            $types[$k] += 1;
+                                        } else {
+                                            $types[5] += 1;
+                                        }
+                                    }
+                                }
+                                foreach ($types as $typeKey => $type) {
+                                    if($type === max($types))
+                                        $resultKeys[$testId + 1][] = $typeKey;
+                                }
+                                break;
+                            case 2:
+                                break;
+                            case 3:
+                                break;
+                            default:
+                                break;
+                        }
+                    }
+
+                    var_dump($resultKeys);
+//                    var_dump(json_decode($order->result));
+
+//                    $order->is_paid = 1;
+//                    $order->save();
                 }
             };
         }

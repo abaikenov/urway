@@ -6,13 +6,13 @@ use yii\bootstrap\ActiveForm;
 use yii\helpers\Html;
 
 /* @var $this yii\web\View */
-/* @var $model app\models\TestQuestion */
+/* @var $model app\models\TestResult */
 /* @var $test app\models\Test */
 
-$this->title = Yii::t('app', 'Update Question: ') . $model->id;
+$this->title = Yii::t('app', 'Update Result: ') . $model->id;
 $this->params['breadcrumbs'][] = ['label' => Yii::t('app', 'Tests'), 'url' => ['index']];
 $this->params['breadcrumbs'][] = ['label' => $test->name->title, 'url' => ['view', 'id' => $test->id]];
-$this->params['breadcrumbs'][] = ['label' => Yii::t('app', 'Tests Questions'), 'url' => ['questions', 'id' => Yii::$app->request->get('parent')]];
+$this->params['breadcrumbs'][] = ['label' => Yii::t('app', 'Tests Results'), 'url' => ['results', 'id' => Yii::$app->request->get('parent')]];
 $this->params['breadcrumbs'][] = '№'.$model->id;
 $this->params['breadcrumbs'][] = Yii::t('app', 'Update');
 ?>
@@ -35,6 +35,7 @@ $this->params['breadcrumbs'][] = Yii::t('app', 'Update');
 
         <!-- Tab panes -->
         <div class="tab-content" style="padding: 15px 0">
+            <?= $form->field($model, 'code')->textInput() ?>
             <?php /** @var \app\models\Lang $lang */
             foreach (Lang::find()->all() as $lang):?>
                 <div role="tabpanel" class="tab-pane <?= Lang::getDefaultLang()->id === $lang->id ? 'active' : '' ?>"
@@ -42,9 +43,17 @@ $this->params['breadcrumbs'][] = Yii::t('app', 'Update');
                     <?php /** @var \app\models\TestQuestionTranslate $translate */
                     foreach ($model->translates as $translate):?>
                         <?php if ($translate->lang_id === $lang->id): ?>
-                            <?= $form->field($translate, '[' . $translate->id . ']question')->textInput() ?>
-                            <?= $form->field($translate, '[' . $translate->id . ']answer_first')->textInput() ?>
-                            <?= $form->field($translate, '[' . $translate->id . ']answer_second')->textInput() ?>
+                            <?= $form->field($translate, '[' . $translate->id . ']name')->textInput() ?>
+                            <?= $form->field($translate, '[' . $translate->id . ']description')->textInput() ?>
+                            <?= $form->field($translate, '[' . $translate->id . ']content')->widget(Widget::className(), [
+                                'settings' => [
+                                    'lang' => 'ru',
+                                    'minHeight' => 200,
+                                    'plugins' => [
+                                        'fullscreen'
+                                    ]
+                                ]
+                            ]);  ?>
                         <?php endif; ?>
                     <?php endforeach; ?>
                 </div>

@@ -61,7 +61,7 @@ class TestQuestion extends \yii\db\ActiveRecord
 
     public function getTranslate()
     {
-        return $this->hasOne(TestQuestionTranslate::className(), ['question_id' => 'id'])->where(['lang_id' => 1]);
+        return $this->hasOne(TestQuestionTranslate::className(), ['question_id' => 'id'])->where(['lang_id' => Lang::getCurrent()->id]);
     }
 
     public function getTranslates()

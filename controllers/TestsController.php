@@ -6,6 +6,8 @@ use app\models\Lang;
 use app\models\TestName;
 use app\models\TestQuestion;
 use app\models\TestQuestionTranslate;
+use app\models\TestResult;
+use app\models\TestResultTranslate;
 use Yii;
 use app\models\Test;
 use yii\data\ActiveDataProvider;
@@ -92,7 +94,7 @@ class TestsController extends Controller
             foreach ($model->names as $name) {
                 $data = Yii::$app->request->post('TestName')[$name->id];
                 $name->title = $data['title'];
-                $name->subtitle = $data['title'];
+                $name->subtitle = $data['subtitle'];
                 $name->description = $data['description'];
                 $name->save();
             }
@@ -113,11 +115,13 @@ class TestsController extends Controller
 
         return $this->render('questions', [
             'dataProvider' => $dataProvider,
+            'model' => Test::findOne($id)
         ]);
     }
 
-    public function actionQuestionUpdate($id, $parent)
+    public function actionQuestionUpdate($id, $parent, $page)
     {
+        $test = Test::findOne($parent);
         /** @var TestQuestion $model */
         $model = TestQuestion::findOne($id);
 
@@ -132,6 +136,7 @@ class TestsController extends Controller
                     continue 2;
                 }
             }
+
             $name = new TestQuestionTranslate();
             $name->question_id = $model->id;
             $name->lang_id = $lang->id;
@@ -151,11 +156,72 @@ class TestsController extends Controller
                 $translate->save();
             }
 
-            return $this->redirect(['question-view', 'id' => $model->id]);
+            return $this->redirect(['questions', 'id' => $parent, 'page' => $page]);
         }
 
         return $this->render('question-update', [
             'model' => $model,
+            'test' => $test,
+        ]);
+    }
+
+    public function actionResults($id)
+    {
+        $dataProvider = new ActiveDataProvider([
+            'query' => TestResult::find()->where(['test_id' => $id]),
+        ]);
+
+        return $this->render('results', [
+            'dataProvider' => $dataProvider,
+            'model' => Test::findOne($id)
+        ]);
+    }
+
+    public function actionResultUpdate($id, $parent, $page)
+    {
+        $test = Test::findOne($parent);
+        /** @var TestResult $model */
+        $model = TestResult::findOne($id);
+
+        if(!$model)
+            return $this->redirect(['results', 'id' => $parent]);
+
+        /** @var Lang $lang */
+        foreach (Lang::find()->all() as $lang) {
+            /** @var TestQuestionTranslate $translate */
+            foreach ($model->translates as $translate) {
+                if ($translate->lang_id === $lang->id) {
+                    continue 2;
+                }
+            }
+            $name = new TestResultTranslate();
+            $name->result_id = $model->id;
+            $name->lang_id = $lang->id;
+            $name->date_update = time();
+            $name->date_create = time();
+            $name->save();
+        }
+
+        $model = TestResult::findOne($id);
+
+        if (Yii::$app->request->isPost) {
+            $model->code = Yii::$app->request->post('TestResult')['code'];
+            /** @var TestResultTranslate $translate */
+            foreach ($model->translates as $translate) {
+                $data = Yii::$app->request->post('TestResultTranslate')[$translate->id];
+                $translate->name = $data['name'];
+                $translate->description = $data['description'];
+                $translate->content = $data['content'];
+                $translate->save();
+            }
+            $model->save();
+
+            return $this->redirect(['results', 'id' => $parent, 'page' => $page]);
+        }
+
+        return $this->render('result-update', [
+            'model' => $model,
+            'test' => $test,
         ]);
     }
 

@@ -72,4 +72,14 @@ class Test extends \yii\db\ActiveRecord
         return TestQuestion::find()->where(['test_id' => $this->id])->count();
     }
 
+    public function getQuestions()
+    {
+        return $this->hasMany(TestQuestion::className(), ['test_id' => 'id']);
+    }
+
+    public function getResults()
+    {
+        return $this->hasMany(TestResult::className(), ['test_id' => 'id']);
+    }
+
 }

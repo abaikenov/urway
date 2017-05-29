@@ -24,7 +24,7 @@ $this->params['breadcrumbs'][] = $this->title;
 
             [
                 'class' => 'yii\grid\ActionColumn',
-                'template' => '{view} {update} {questions} {answers}',
+                'template' => '{view} {update} {questions} {results}',
                 'buttons' => [
                     'questions' => function ($url, $model) {
                         return Html::a('<span class="glyphicon glyphicon-question-sign"></span>', $url, [
@@ -32,9 +32,9 @@ $this->params['breadcrumbs'][] = $this->title;
                         ]);
 
                     },
-                    'answers' => function ($url, $model) {
+                    'results' => function ($url, $model) {
                         return Html::a('<span class="glyphicon glyphicon-info-sign"></span>', $url, [
-                            'title' => Yii::t('yii', 'Answers'),
+                            'title' => Yii::t('yii', 'Results'),
                         ]);
 
                     }

@@ -84,4 +84,12 @@ return [
     'Description' => 'Описание',
     'Content' => 'Содержимое',
     'Questions Count' => 'Количество вопросов',
+    'Tests Questions' => 'Тестовые вопросы',
+    'Question' => 'Вопрос',
+    'Answer First' => 'Первый вариант ответа',
+    'Answer Second' => 'Второй вариант ответа',
+    'Update Question: ' => 'Обновить вопрос: ',
+    'Update Result: ' => 'Обновить результат: ',
+    'Tests Results' => 'Результаты теста',
+    'Code' => 'Код',
 ];

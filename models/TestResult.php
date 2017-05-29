@@ -61,4 +61,14 @@ class TestResult extends \yii\db\ActiveRecord
             'date_create' => Yii::t('app', 'Date Create'),
         ];
     }
+
+    public function getTranslate()
+    {
+        return $this->hasOne(TestResultTranslate::className(), ['result_id' => 'id'])->where(['lang_id' => 1]);
+    }
+
+    public function getTranslates()
+    {
+        return $this->hasMany(TestResultTranslate::className(), ['result_id' => 'id']);
+    }
 }

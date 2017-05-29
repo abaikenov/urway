@@ -48,7 +48,7 @@ class Lang extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['url', 'local', 'name', 'short_name', 'date_update', 'date_create'], 'required'],
+            [['url', 'local', 'name', 'short_name'], 'required'],
             [['default', 'date_update', 'date_create'], 'integer'],
             [['url', 'local', 'name', 'short_name'], 'string', 'max' => 255],
         ];
