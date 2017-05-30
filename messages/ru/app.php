@@ -92,4 +92,8 @@ return [
     'Update Result: ' => 'Обновить результат: ',
     'Tests Results' => 'Результаты теста',
     'Code' => 'Код',
+    'Your results' => 'Ваши результаты',
+    '{testId}. {name}, you have {count} basic type of thinking.' => '{testId}. {name}, у Вас {count} основное(-ых) типа мышления.',
+    '{testId}. {name}, you have {count} professional inclinations.' => '{testId}. {name}, у Вас {count} основное(-ых) профессиональных склонностей.',
+    '{testId}. {name}, you have {count} primary type of personality.' => '{testId}. {name}, у Вас {count} основное(-ых) типа личности.',
 ];

@@ -61,4 +61,8 @@ return [
     '«YOUR VOICE»' => '«Сіздің призвание»',
     'Payment was successful!' => 'Төлем табысты аяқталды!',
     'The result of testing was sent to the mail you specified!' => 'Сынақ нәтижесі сіздің электрондық поштаңызға жіберілді!',
+    'Your results' => 'Сіздің нәтижелеріңіз',
+    '{testId}. {name}, you have {count} basic type of thinking.' => '{testId}. {name}, сізде {count} басты ойлау түр бар.',
+    '{testId}. {name}, you have {count} professional inclinations.' => '{testId}. {name}, сізде {count} басты кәсіби бейімділік бар.',
+    '{testId}. {name}, you have {count} primary type of personality.' => '{testId}. {name}, сізде {count} басты жеке тулга бар.',
 ];

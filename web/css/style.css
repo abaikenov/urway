@@ -15,8 +15,21 @@ html {
 
 body {
     background: #b1f6cb;
-    background-image: url("/img/background.png");
+    background-image: url("/img/bg.jpg");
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: cover;
     font-family: 'PT Sans', sans-serif;
+}
+
+body.stage-1 {
+    background-image: url("/img/bg1.jpg");
+}
+body.stage-2 {
+    background-image: url("/img/bg2.jpg");
+}
+body.stage-3 {
+    background-image: url("/img/bg3.jpg");
 }
 
 p {

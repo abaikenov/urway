@@ -157,7 +157,6 @@ app.controller('testingController', ['$http', '$scope', '$location', '$sce', '$c
     };
 
     var orderId = $cookies.get('orderId');
-    console.log('OrderID ' + orderId);
     if (orderId) {
         $http({
             method: 'GET',
@@ -166,4 +165,14 @@ app.controller('testingController', ['$http', '$scope', '$location', '$sce', '$c
     } else {
         start();
     }
+
+
+    var shareElement = document.getElementById('share');
+    var share = Ya.share2(shareElement, {
+        content: {
+            url: 'http://urway.kz/',
+            title: 'ВАШ ПСИХОЛОГИЧЕСКИЙ ПОРТРЕТ',
+            image: 'http://urway.kz/img/header.jpg'
+        }
+    });
 }]);

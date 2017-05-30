@@ -49,7 +49,7 @@ $descriptions = array(
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width">
     <meta charset=utf-8>
-    <title>Тест</title>
+    <title>{{$ctrl.subtitle}}</title>
     <!-- Open Graph Protocol Tags -->
     <?php if ($symbol = Yii::$app->request->get('symbol')): ?>
         <meta property="og:title"
@@ -66,7 +66,7 @@ $descriptions = array(
     <!-- <link href='https://fonts.googleapis.com/css?family=Ubuntu+Condensed&subset=latin,cyrillic' rel='stylesheet' type='text/css'> -->
     <link href='/css/style.css' rel='stylesheet' type='text/css'>
 </head>
-<body lang="<?= Lang::getCurrent()->url ?>">
+<body lang="<?= Lang::getCurrent()->url ?>" class="stage-{{$ctrl.stage}}">
 <div>
     <header class="footer">
         <center>
@@ -120,7 +120,8 @@ $descriptions = array(
                             ng-disabled="$ctrl.answers[$ctrl.counter].answer==undefined"
                             ng-hide="$ctrl.counter + 1 == $ctrl.questionsCount">
                         <?= Yii::t('app', 'Next') ?><i class="fa fa-arrow-right icon"></i></button>
-                    <button type="button" class="finishButton" ng-click="$ctrl.finish()" ng-disabled="$ctrl.answers[$ctrl.counter].answer==undefined"
+                    <button type="button" class="finishButton" ng-click="$ctrl.finish()"
+                            ng-disabled="$ctrl.answers[$ctrl.counter].answer==undefined"
                             ng-show="$ctrl.counter+1==$ctrl.questionsCount"><?= Yii::t('app', 'Complete') ?><i
                                 class="fa fa-check-circle icon"></i>
                     </button>
@@ -145,7 +146,8 @@ $descriptions = array(
                     <?= Yii::t('app', 'You need to pass') ?>
                 </p>
                 <div class="row">
-                    <button class="nextTestButton" ng-click="$ctrl.nextStage()"><?= Yii::t('app', 'Basic test') ?></button>
+                    <button class="nextTestButton"
+                            ng-click="$ctrl.nextStage()"><?= Yii::t('app', 'Basic test') ?></button>
                 </div>
             </div>
 
@@ -156,7 +158,8 @@ $descriptions = array(
                     <!-- https://epay.kkb.kz/jsp/process/logon.jsp -->
                     <div class="form-group">
                         <label for="form-name"><?= Yii::t('app', 'Name:') ?></label>
-                        <input type="text" id="form-name" class="form-control" ng-model="$ctrl.order.name" ng-required="true">
+                        <input type="text" id="form-name" class="form-control" ng-model="$ctrl.order.name"
+                               ng-required="true">
                     </div>
                     <div class="form-group">
                         <label for="form-email"><?= Yii::t('app', 'E-mail:') ?></label>
@@ -165,7 +168,8 @@ $descriptions = array(
                     </div>
                     <div class="form-group">
                         <label for="form-form-email-repeat"><?= Yii::t('app', 'Repeat e-mail:') ?></label>
-                        <input type="email" id="form-email-repeat" class="form-control" ng-model="$ctrl.order.emailConfirm"
+                        <input type="email" id="form-email-repeat" class="form-control"
+                               ng-model="$ctrl.order.emailConfirm"
                                ng-required="true">
                     </div>
                     <p><?= Yii::t('app', 'The payment is 990 tenge') ?></p>
@@ -173,7 +177,7 @@ $descriptions = array(
                     <input type="hidden" name="Language" value="rus"/>
                     <input type="hidden" name="BackLink" value="<?= Url::to(['test'], true) ?>"/>
                     <input type="hidden" name="FailureLink" value="<?= Url::to(['test'], true) ?>"/>
-                    <input type="hidden" name="PostLink" value="<?= Url::to('/post-link', true) ?>"/>
+                    <input type="hidden" name="PostLink" value="<?= Url::to(['post-link/index'], true) ?>"/>
                     <button type="button" ng-click="$ctrl.payment()"
                             class="startButton"><?= Yii::t('app', 'Proceed to checkout') ?></button>
                 </form>
@@ -185,41 +189,23 @@ $descriptions = array(
             <p><?= Yii::t('app', 'Оплата прошла успешна!') ?></p>
             <p><?= Yii::t('app', 'Результат тестирования был отправлен на указанную Вами почту!') ?></p>
         </div>
+
+        <footer class="footer">
+            <div style="margin-bottom: 10px"><?= Yii::t('app', 'Tell a friend about the test') ?>:</div>
+            <div id="share"></div>
+        </footer>
     </div>
-    <footer class="footer">
-        <div style="margin-bottom: 10px"><?= Yii::t('app', 'Tell a friend about the test') ?>:</div>
-        <div id="vk_temp" style="display:-webkit-inline-box;">
-            <a ng-show="$ctrl.testEnded" target="_blank" title="<?= Yii::t('app', 'Share') ?>"
-               href="http://www.facebook.com/sharer.php?u=http%3A%2F%2Fwww.urway.kz%2Ftest.php%3Fsymbol%3D{{$ctrl.tableSymbol}}"><img
-                        style="height:21px; margin-right:10px;" src="/img/facebook_ru.png"></a>
-            <a ng-show="!$ctrl.testEnded" target="_blank" title="<?= Yii::t('app', 'Share') ?>"
-               href="http://www.facebook.com/sharer.php?u=http%3A%2F%2Fwww.urway.kz%2F"><img
-                        style="height:21px; margin-right:10px;" src="/img/facebook_ru.png"></a>
-            <div ng-show="!$ctrl.testEnded">
-                <script type="text/javascript">
-                    document.write(VK.Share.button({
-                        url: 'http://www.urway.kz/',
-                    }, {type: 'round', text: '<?= Yii::t('app', 'Share')?>'}));
-                </script>
-            </div>
-        </div>
-        <script type="text/javascript">
-            function showVk(value) {
-                $('#vk_temp').append(VK.Share.button({
-                    url: 'http://www.urway.kz/test.php?symbol=' + value,
-                }, {type: 'round', text: '<?= Yii::t('app', 'Share')?>'}));
-                return;
-            }
-        </script>
-    </footer>
 </div>
 
+<script src="https://yastatic.net/es5-shims/0.0.2/es5-shims.min.js"></script>
+<script src="https://yastatic.net/share2/share.js"></script>
 <script src='/js/jquery.min.js'></script>
 <script src='/js/angular.min.js'></script>
 <script src='/js/angular-cookies.min.js'></script>
 <script src="/js/angular-route.js"></script>
 <script src='/js/testing.js'></script>
-<script type="text/javascript" src="http://vk.com/js/api/share.js?90" charset="windows-1251"></script>
+
+
 <script>
     (function (i, s, o, g, r, a, m) {
         i['GoogleAnalyticsObject'] = r;

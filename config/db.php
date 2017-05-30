@@ -1,9 +1,2 @@
 <?php
-
-return [
-    'class' => 'yii\db\Connection',
-    'dsn' => 'mysql:host=127.0.0.1;dbname=urway',
-    'username' => 'root',
-    'password' => '',
-    'charset' => 'utf8',
-];
+return require(__DIR__ . '/db-local.php');

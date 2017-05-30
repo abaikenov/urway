@@ -64,7 +64,7 @@ class TestResult extends \yii\db\ActiveRecord
 
     public function getTranslate()
     {
-        return $this->hasOne(TestResultTranslate::className(), ['result_id' => 'id'])->where(['lang_id' => 1]);
+        return $this->hasOne(TestResultTranslate::className(), ['result_id' => 'id'])->where(['lang_id' => Lang::getCurrent()->id]);
     }
 
     public function getTranslates()

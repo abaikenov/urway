@@ -14,8 +14,8 @@ use yii\bootstrap\Html;
 
     <meta content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0' name='viewport'/>
     <meta name="viewport" content="width=device-width"/>
-    <meta property="og:title" content="asdasd" metaproperty="title">
-    <meta property="og:image" content="/img/header.jpg">
+    <meta property="og:title" content="asdasd">
+    <meta property="og:image" content="http://urway.kz/img/header.jpg">
     <meta property="og:description" content="<?= Yii::t('app', 'The test was developed by a group of psychologists to determine your vocation.')?>">
 
     <link href="/css/bootstrap.css" rel="stylesheet"/>
@@ -340,7 +340,6 @@ use yii\bootstrap\Html;
                 parallax();
             });
         }
-
     });
 
     var parallax = function () {
