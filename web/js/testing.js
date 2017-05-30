@@ -12,7 +12,6 @@ app.controller('testingController', ['$http', '$scope', '$location', '$sce', '$c
 
     var lang = $('body').attr('lang');
 
-
     var initStage = function (stage) {
         console.log('Init stage: ' + stage);
         var test = allTests[stage];
@@ -75,14 +74,26 @@ app.controller('testingController', ['$http', '$scope', '$location', '$sce', '$c
     $ctrl.finish = function () {
         switch ($ctrl.stage) {
             case 0:
-                // console.log("finish");
-                // getTableCode();
                 $ctrl.tableSymbol = getTableCode();
-                // $ctrl.tableSymbol = 'ESFJ';
                 $location.search('symbol', $ctrl.tableSymbol);
                 $ctrl.testEnded = true;
-                showVk($ctrl.tableSymbol);
                 // console.log($ctrl.table[$ctrl.tableSymbol]);
+                Ya.share2(shareElement, {
+                    theme: {
+                        services: 'facebook,vkontakte,whatsapp',
+                        counter: true,
+                        lang: 'ru',
+                        limit: 3,
+                        size: 's',
+                        bare: false
+                    },
+                    content: {
+                        url: $location.protocol() + '://' + $location.host(),
+                        title: $('#share-translate').text() + ' - ' + $ctrl.results[$ctrl.tableSymbol].name,
+                        description: $ctrl.results[$ctrl.tableSymbol].description,
+                        image: $location.protocol() + '://' + $location.host() + '/img/avatars/' + $ctrl.tableSymbol + '.jpg'
+                    }
+                });
                 break;
             case 1:
                 initStage(2);
@@ -130,12 +141,6 @@ app.controller('testingController', ['$http', '$scope', '$location', '$sce', '$c
         return $sce.trustAsHtml(htmlCode);
     };
 
-    $ctrl.order = {
-        name: 'Amirlan',
-        email: 'Ami0790@gmail.com',
-        emailConfirm: 'Ami0790@gmail.com'
-    };
-
     $ctrl.payment = function () {
         if ($ctrl.order.email !== $ctrl.order.emailConfirm) {
             alert('Email-ы должны совпадать');
@@ -166,13 +171,20 @@ app.controller('testingController', ['$http', '$scope', '$location', '$sce', '$c
         start();
     }
 
-
     var shareElement = document.getElementById('share');
-    var share = Ya.share2(shareElement, {
+    Ya.share2(shareElement, {
+        theme: {
+            services: 'facebook,vkontakte,whatsapp',
+            counter: true,
+            lang: 'ru',
+            limit: 3,
+            size: 's',
+            bare: false
+        },
         content: {
-            url: 'http://urway.kz/',
+            url: $location.protocol() + '://' + $location.host(),
             title: 'ВАШ ПСИХОЛОГИЧЕСКИЙ ПОРТРЕТ',
-            image: 'http://urway.kz/img/header.jpg'
+            image: $location.protocol() + '://' + $location.host() + '/img/header.jpg'
         }
     });
 }]);

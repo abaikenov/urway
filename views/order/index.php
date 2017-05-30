@@ -20,8 +20,18 @@ $this->params['breadcrumbs'][] = $this->title;
             'name',
             'email:email',
             'is_paid:boolean',
-            'amount:currency',
-            'date_create:datetime',
+            [
+                'attribute' => 'amount',
+                'value' => function($model) {
+                    return $model->amount.' тг.';
+                },
+            ],
+            [
+                'attribute' => 'date_create',
+                'value' => function($model) {
+                    return date('d.m.Y H:i:s', $model->date_create);
+                },
+            ],
         ],
     ]); ?>
 </div>

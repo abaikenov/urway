@@ -9,8 +9,6 @@
 namespace app\components\payment;
 
 
-use app\components\C;
-
 class Xml {
 // -----===++[Parse XML to ARRAY]++===-----
     // methods:

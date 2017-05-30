@@ -38,9 +38,8 @@ p {
 
 /* super basic grid structure */
 .container {
-    width: 680px;
-    margin: 20px auto;
-    margin-top: 50px;
+    max-width: 680px;
+    margin: 50px auto 20px;
     background: #ffffff;
     padding: 20px 0;
     -webkit-box-shadow: 0 0 2px rgba(0, 0, 0, 0.2);
@@ -48,15 +47,14 @@ p {
 }
 
 .footer {
-    width: 680px;
+    max-width: 680px;
     margin: 20px auto;
 }
 
 .row {
     display: block;
-    padding: 10px;
+    padding: 10px 0;
     text-align: center;
-    width: 100%;
     clear: both;
     overflow: hidden;
 }
@@ -69,6 +67,12 @@ p {
 .content {
     background: #fff;
     padding: 0 50px;
+}
+
+@media screen and (max-width: 425px) {
+    .content {
+        padding: 0 15px;
+    }
 }
 
 /* logo */
@@ -143,14 +147,16 @@ input:focus::-moz-input-placeholder {
 }
 
 label {
-    /*width: 500px;*/
     padding: 5px 20px;
     font-size: 22px;
-    /*font-weight: 600;*/
-    /*text-transform: uppercase;*/
     color: #000;
     display: block;
-    /*position: absolute;*/
+}
+
+@media screen and (max-width: 425px){
+    label {
+        padding: 5px 0;
+    }
 }
 
 center {
@@ -230,8 +236,13 @@ button {
 /* task styles */
 .answerList {
     list-style: none;
-    padding: 0 20px;
+    padding: 0;
     margin-bottom: 40px;
+    color: #95a5a6;
+    font-size: 18px;
+    font-weight: bold;
+    /*text-transform: uppercase;*/
+    display: block;
 }
 
 .answerItem {
@@ -250,15 +261,6 @@ button {
 
 .answerCheckbox {
     margin-right: 1em;
-}
-
-.answerList {
-    color: #95a5a6;
-    font-size: 18px;
-    font-weight: bold;
-    /*text-transform: uppercase;*/
-    display: block;
-    margin-left: 20px;
 }
 
 footer {

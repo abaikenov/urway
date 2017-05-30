@@ -2,9 +2,6 @@
 
 namespace app\components\payment;
 
-use app\components\C;
-use app\modules\shop\models\OrderTransaction;
-use yii\helpers\Url;
 
 /*
 -----===++[Additional procedures by Pavel Nedelin (soius@soius.kz;tecc@mail.kz)		]++===-----

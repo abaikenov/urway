@@ -1,46 +1,6 @@
 <?php
-use app\components\LangUrlManager;
-use app\components\payment\KkbPayment;
 use app\models\Lang;
-use yii\bootstrap\Html;
 use yii\helpers\Url;
-
-$names = array(
-    'ISTJ' => 'Максим Горький',
-    'ISTP' => 'Габен',
-    'ESTP' => 'Жуков',
-    'ESTJ' => 'Штирлиц',
-    'INFJ' => 'Достоевский',
-    'INFP' => 'Есенин',
-    'ENFP' => 'Гексли',
-    'ENFJ' => 'Гамлет',
-    'ISFJ' => 'Драйзер',
-    'ISFP' => 'Дюма',
-    'ESFP' => 'Наполеон',
-    'ESFJ' => 'Гюго',
-    'INTJ' => 'Робеспьер',
-    'INTP' => 'Бальзак',
-    'ENTP' => 'Дон Кихот',
-    'ENTJ' => 'Джек Лондон',
-);
-$descriptions = array(
-    'ISTJ' => 'систематик, попечитель. Делать то, что должно быть сделано, любовь – достойная цель. Прирожденные организаторы жизни.',
-    'ISTP' => 'Мастер, Джаконда. Легкие на подъем. Дела говорят больше, чем слова. Просто делай.',
-    'ESTP' => 'организатор, поощритель, Македонский. Реалисты до мозга костей. Отношения не должны быть скучными. Главное – поймать момент.',
-    'ESTJ' => 'администратор, Шерлок Холмс. Хозяева жизни. Обопрись на меня. Прирожденные руководители.',
-    'INFJ' => 'гуманист, писатель. Вдохновляющие окружающих. Сердце, разум и дух. Вдохновляющий лидер и последователь.',
-    'INFP' => 'Тутанхомон, лирик. Благородная служба обществу. Вдохновляющий идеализм. Сделать жизнь приятнее.',
-    'ENFP' => 'советник, инициатор, журналист. Да здравствует жизнь! Слишком большой близости не бывает. Результат – люди.',
-    'ENFJ' => 'артист, наставник, педагог. Сладкоречивый увещеватель. Отношение – это все.',
-    'ISFJ' => 'хранитель, Клайд. Высокое чувство долга. Служение, прежде всего. Преданные своему делу.',
-    'ISFP' => 'посредник, художник. Все видит, но не во что не вмешивается. Неужели человек может быть таким непритязательным. Дела говорят красноречивее слов.',
-    'ESFP' => 'Цезарь,  лидер, политик. Живем ведь только раз. Любовь – получение максимума от каждой минуты. Сделаем работу веселее.',
-    'ESFJ' => 'оптимист, продавец. Повелители мира. Будь рядом с тем, кого любишь. Друзья всех и каждого.',
-    'INTJ' => 'аналитик, ученый. Все можно улучшить. Любые отношения можно улучшить. Вольные мыслители жизни.',
-    'INTP' => 'критик, созидатель, фельдмаршал. Любовь к решению проблем. В любви важен разум. Осмыслители жизни.',
-    'ENTP' => 'искатель, новатор. Одно увлекательное дело за другим. Отношения – еще один вызов. Результат – это прогресс.',
-    'ENTJ' => 'предприниматель. Вожди по натуре. Хороших отношений без лидера не может быть. Прирожденные лидеры.',
-);
 ?>
 
 <html ng-app="TestingApp" ng-controller="testingController as $ctrl">
@@ -49,18 +9,7 @@ $descriptions = array(
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width">
     <meta charset=utf-8>
-    <title>{{$ctrl.subtitle}}</title>
-    <!-- Open Graph Protocol Tags -->
-    <?php if ($symbol = Yii::$app->request->get('symbol')): ?>
-        <meta property="og:title"
-              content="<?= Yii::t('app', 'My psychological portrait') ?> - <?php echo $names[$symbol]; ?>"
-              metaproperty="title">
-        <meta property="og:image" content="http://urway.kz/testing/avatars/<?php echo $symbol; ?>.jpg"
-              metaproperty="image">
-        <meta property="og:description" content="<?php echo $descriptions[$symbol]; ?>"
-              metaproperty="description">
-    <?php endif; ?>
-
+    <title>Тест</title>
     <link href="/css/bootstrap.css" rel="stylesheet"/>
     <link href="/css/font-awesome.min.css" rel="stylesheet">
     <!-- <link href='https://fonts.googleapis.com/css?family=Ubuntu+Condensed&subset=latin,cyrillic' rel='stylesheet' type='text/css'> -->
@@ -128,6 +77,7 @@ $descriptions = array(
                 </div>
             </form>
             <div ng-if="$ctrl.testEnded && !$ctrl.stage" class="text-center">
+                <span id="share-translate" class="hidden"><?= Yii::t('app', 'My psychological portrait')?></span>
                 <p>
                     <img src="/img/avatars/{{$ctrl.tableSymbol}}.jpg" style="width: 100%;"/>
                 </p>
