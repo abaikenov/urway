@@ -76,9 +76,9 @@ use yii\bootstrap\Html;
                     </a>
                 </li>
 
-                <?php foreach ($langs as $lang): ?>
-                    <li>
-                        <?= Html::a($lang->short_name, '/' . $lang->url . Yii::$app->getRequest()->getLangUrl(), ['style' => 'color: red']) ?>
+                <?php foreach (array_reverse($langs) as $lang): ?>
+                    <li class="pull-right">
+                        <?= Html::a('', '/' . $lang->url . Yii::$app->getRequest()->getLangUrl(), ['class' => 'lang-icon lang-icon-'.$lang->url]) ?>
                     </li>
                 <?php endforeach; ?>
             </ul>
@@ -269,6 +269,7 @@ use yii\bootstrap\Html;
                 <p><?= Yii::t('app', '1. The first section includes a questionnaire (28 questions) that will help determine your personality type.')?></p>
                 <p style="max-width:700px;"><?= Yii::t('app', '2. The second section includes the Test (280 questions), after which you can get a detailed Description of your strengths and weaknesses, a list of professions that you should pay attention to Considering your talents and abilities.')?></p>
                 <p style="max-width:700px;line-height:18px;"><?= Yii::t('app', 'Temporary restrictions are not present. Remembering the e-mail and password, you can continue the test at any convenient For you time. We recommend that you do not spend more than 7-10 seconds on 1 question. The average test takes From 35 to 50 minutes. We wish you good luck!')?></p>
+                <p style="max-width:700px;line-height:18px;"><?= Yii::t('app', 'On average, the passage of the Questionnaire and 3 Tests takes <strong><u>10 to 15 minutes.</u></strong> We wish you good luck!')?></p>
                 <a href="<?= \yii\helpers\Url::toRoute('test') ?>" class="btn btn-neutral btn-lg"><i
                             class="fa fa-lg fa-play-circle"></i>
                     <?= Yii::t('app', 'Pass the TEST')?></a>

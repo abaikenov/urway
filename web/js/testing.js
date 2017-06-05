@@ -84,7 +84,7 @@ app.controller('testingController', ['$http', '$scope', '$location', '$sce', '$c
                         counter: true,
                         lang: 'ru',
                         limit: 3,
-                        size: 's',
+                        size: 'm',
                         bare: false
                     },
                     content: {
@@ -178,7 +178,7 @@ app.controller('testingController', ['$http', '$scope', '$location', '$sce', '$c
             counter: true,
             lang: 'ru',
             limit: 3,
-            size: 's',
+            size: 'm',
             bare: false
         },
         content: {

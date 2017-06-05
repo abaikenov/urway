@@ -45,7 +45,7 @@ use yii\helpers\Url;
                         </b>
                     </p>
                 </div>
-                <p ng-if="$ctrl.questions[$ctrl.counter]" class="text-center">{{$ctrl.questions[$ctrl.counter]}}</p>
+                <p ng-if="$ctrl.questions[$ctrl.counter]" class="text-center" style="margin-bottom: 20px;">{{$ctrl.questions[$ctrl.counter]}}</p>
                 <ul class="answerList">
                     <li class="answerItem">
                         <label>
@@ -90,7 +90,7 @@ use yii\helpers\Url;
                 <p>
                     {{$ctrl.results[$ctrl.tableSymbol].content}}
                 </p>
-
+                <br/>
                 <p style="text-decoration: underline">
                     <span class="text-bold"><?= Yii::t('app', 'For a detailed result on your personality type,') ?></span><br/>
                     <?= Yii::t('app', 'You need to pass') ?>
@@ -141,7 +141,7 @@ use yii\helpers\Url;
         </div>
 
         <footer class="footer">
-            <div style="margin-bottom: 10px"><?= Yii::t('app', 'Tell a friend about the test') ?>:</div>
+            <div style="margin-bottom: 10px; font-size: 14px"><?= Yii::t('app', 'Tell a friend about the test') ?>:</div>
             <div id="share"></div>
         </footer>
     </div>
