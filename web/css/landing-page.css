@@ -1623,10 +1623,17 @@ ul.banner-social-buttons li {
 }
 
 .navbar .navbar-nav > li > a.lang-icon {
-    width: 40px;
-    height: 40px;
+    width: 28px;
+    height: 28px;
     margin-left: 10px;
     background-size: contain;
+    margin-top: 22px;
+}
+
+@media (max-width: 767px) {
+    .navbar .navbar-nav > li > a.lang-icon {
+        margin: 22px auto;
+    }
 }
 
 .navbar .navbar-nav > li > a.lang-icon-ru {

@@ -77,7 +77,12 @@ use yii\bootstrap\Html;
                 </li>
 
                 <?php foreach (array_reverse($langs) as $lang): ?>
-                    <li class="pull-right">
+                    <li class="pull-right hidden-xs hidden-sm">
+                        <?= Html::a('', '/' . $lang->url . Yii::$app->getRequest()->getLangUrl(), ['class' => 'lang-icon lang-icon-'.$lang->url]) ?>
+                    </li>
+                <?php endforeach; ?>
+                <?php foreach ($langs as $lang): ?>
+                    <li class="hidden-md hidden-lg">
                         <?= Html::a('', '/' . $lang->url . Yii::$app->getRequest()->getLangUrl(), ['class' => 'lang-icon lang-icon-'.$lang->url]) ?>
                     </li>
                 <?php endforeach; ?>
@@ -245,7 +250,7 @@ use yii\bootstrap\Html;
                         <img src="/img/faces/face-2.jpg">
                     </div>
                     <div class="carousel-testimonial-caption">
-                        <p><?= Yii::t('app', 'Elizaveta Komarova, 20 years old')?></p>
+                        <p><?= Yii::t('app', 'Elizaveta Komarova, 25 years old')?></p>
                         <h3><?= Yii::t('app', 'In the 11th grade I was preparing to enter an accountant, because I was well versed in numbers. However, the test expanded my abilities, determining the inclination to exact sciences and abstract Thinking. After the test, I changed my mind and entered the architect. Now I\'m studying at 3rd year and no I do not regret.')?></h3>
 
                     </div>
@@ -260,16 +265,16 @@ use yii\bootstrap\Html;
     </div>
 </div>
 
-<div id="test" class="section section-no-padding">
+<div class="section section-no-padding">
     <div class="full-background filter-gradient blue" style="background-image:url('/img/landing-page-1/bg1.jpg')">
         <div class="info">
             <center>
-                <h3><?= Yii::t('app', 'The test was developed by a group of psychologists to determine your vocation.')?></h3>
+                <h3 id="test" style="padding-top: 20px; margin-top: 0px"><?= Yii::t('app', 'The test was developed by a group of psychologists to determine your vocation.')?></h3>
                 <p><?= Yii::t('app', 'The test consists of 2 consecutive sections.')?></p>
                 <p><?= Yii::t('app', '1. The first section includes a questionnaire (28 questions) that will help determine your personality type.')?></p>
                 <p style="max-width:700px;"><?= Yii::t('app', '2. The second section includes the Test (280 questions), after which you can get a detailed Description of your strengths and weaknesses, a list of professions that you should pay attention to Considering your talents and abilities.')?></p>
                 <p style="max-width:700px;line-height:18px;"><?= Yii::t('app', 'Temporary restrictions are not present. Remembering the e-mail and password, you can continue the test at any convenient For you time. We recommend that you do not spend more than 7-10 seconds on 1 question. The average test takes From 35 to 50 minutes. We wish you good luck!')?></p>
-                <p style="max-width:700px;line-height:18px;"><?= Yii::t('app', 'On average, the passage of the Questionnaire and 3 Tests takes <strong><u>10 to 15 minutes.</u></strong> We wish you good luck!')?></p>
+                <p style="max-width:700px;line-height:18px;"><?= Yii::t('app', 'On average, the passage of the Questionnaire and 3 Tests takes <strong><u>10 to 15 minutes.</u></strong><br/>We wish you good luck!')?></p>
                 <a href="<?= \yii\helpers\Url::toRoute('test') ?>" class="btn btn-neutral btn-lg"><i
                             class="fa fa-lg fa-play-circle"></i>
                     <?= Yii::t('app', 'Pass the TEST')?></a>
