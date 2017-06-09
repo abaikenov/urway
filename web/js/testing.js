@@ -80,7 +80,7 @@ app.controller('testingController', ['$http', '$scope', '$location', '$sce', '$c
                 // console.log($ctrl.table[$ctrl.tableSymbol]);
                 Ya.share2(shareElement, {
                     theme: {
-                        services: 'facebook,vkontakte,whatsapp',
+                        services: 'facebook,vkontakte',
                         counter: true,
                         lang: 'ru',
                         limit: 3,
@@ -94,6 +94,7 @@ app.controller('testingController', ['$http', '$scope', '$location', '$sce', '$c
                         image: $location.protocol() + '://' + $location.host() + '/img/avatars/' + $ctrl.tableSymbol + '.jpg'
                     }
                 });
+                allResults.push({code: $ctrl.tableSymbol});
                 break;
             case 1:
                 initStage(2);
@@ -174,7 +175,7 @@ app.controller('testingController', ['$http', '$scope', '$location', '$sce', '$c
     var shareElement = document.getElementById('share');
     Ya.share2(shareElement, {
         theme: {
-            services: 'facebook,vkontakte,whatsapp',
+            services: 'facebook,vkontakte',
             counter: true,
             lang: 'ru',
             limit: 3,

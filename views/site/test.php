@@ -141,7 +141,8 @@ use yii\helpers\Url;
         </div>
 
         <footer class="footer">
-            <div style="margin-bottom: 10px; font-size: 14px"><?= Yii::t('app', 'Tell a friend about the test') ?>:</div>
+            <div ng-if="($ctrl.stage === 0 && !$ctrl.testEnded) || $ctrl.stage > 0" style="margin-bottom: 10px; font-size: 14px"><?= Yii::t('app', 'Share the test with friends') ?>:</div>
+            <div ng-if="$ctrl.stage === 0 && $ctrl.testEnded" style="margin-bottom: 10px; font-size: 14px"><?= Yii::t('app', 'Tell a friend about the test') ?>:</div>
             <div id="share"></div>
         </footer>
     </div>

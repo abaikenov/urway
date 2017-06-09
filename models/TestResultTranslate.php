@@ -13,11 +13,14 @@ use Yii;
  * @property string $name
  * @property string $description
  * @property string $content
+ * @property string $file_name
+ * @property string $file_path
  * @property integer $date_update
  * @property integer $date_create
  */
 class TestResultTranslate extends \yii\db\ActiveRecord
 {
+    public $file;
     /**
      * @inheritdoc
      */
@@ -47,8 +50,8 @@ class TestResultTranslate extends \yii\db\ActiveRecord
         return [
             [['result_id', 'lang_id', 'date_update', 'date_create'], 'required'],
             [['result_id', 'lang_id', 'date_update', 'date_create'], 'integer'],
-            [['description', 'content'], 'string'],
-            [['name'], 'string', 'max' => 255],
+            [['description', 'content', 'file_name', 'file_path'], 'string'],
+            [['name', 'file_name'], 'string', 'max' => 255],
         ];
     }
 
@@ -64,8 +67,14 @@ class TestResultTranslate extends \yii\db\ActiveRecord
             'name' => Yii::t('app', 'Name'),
             'description' => Yii::t('app', 'Description'),
             'content' => Yii::t('app', 'Content'),
+            'file' => Yii::t('app', 'File'),
             'date_update' => Yii::t('app', 'Date Update'),
             'date_create' => Yii::t('app', 'Date Create'),
         ];
+    }
+
+    public function getLang()
+    {
+        return $this->hasOne(Lang::className(), ['id' => 'lang_id']);
     }
 }

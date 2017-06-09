@@ -37,10 +37,17 @@ class PostLinkController extends Controller
                 $order = Order::find()->where(['id' => intval($result['ORDER_ORDER_ID']), 'amount' => $result['PAYMENT_AMOUNT'], 'is_paid' => false])->one();
                 if (null != $order) {
                     $resultKeys = [];
-                    $html = '<p>'. Yii::t('app', 'Your results') .':</p>';
-                    foreach (json_decode($order->result) as $testId => $result) {
+                    $html = '<p>' . Yii::t('app', 'Your results') . ':</p>';
+                    $files = [];
+                    $allResults = json_decode($order->result);
+                    $questionnaire = $allResults[0];
+                    unset($allResults[0]);
 
-                        switch ($testId + 1) {
+                    $questionnaireResult = TestResult::find()->where(['test_id' => 1])->one();
+                    $files[] = $questionnaireResult->translate->file_path;
+
+                    foreach ($allResults as $testId => $result) {
+                        switch ($testId) {
                             case 1:
                                 // первый тест
                                 $types = [1 => 0, 2 => 0, 3 => 0, 4 => 0, 5 => 0];
@@ -56,7 +63,7 @@ class PostLinkController extends Controller
                                 }
                                 foreach ($types as $typeKey => $type) {
                                     if ($type === max($types))
-                                        $resultKeys[$testId + 1][] = $typeKey;
+                                        $resultKeys[$testId][] = $typeKey;
                                 }
                                 break;
                             case 2:
@@ -121,7 +128,7 @@ class PostLinkController extends Controller
 
                                 foreach ($types as $typeKey => $type) {
                                     if ($type === max($types))
-                                        $resultKeys[$testId + 1][] = $typeKey;
+                                        $resultKeys[$testId][] = $typeKey;
                                 }
                                 break;
                             case 3:
@@ -236,7 +243,7 @@ class PostLinkController extends Controller
 
                                 foreach ($types as $typeKey => $type) {
                                     if ($type === max($types))
-                                        $resultKeys[$testId + 1][] = $typeKey;
+                                        $resultKeys[$testId][] = $typeKey;
                                 }
                                 break;
                             default:
@@ -250,13 +257,13 @@ class PostLinkController extends Controller
 
                         switch ($testId) {
                             case 1:
-                                $html .= '<p>' . Yii::t('app', '{testId}. {name}, you have {count} basic type of thinking.', ['testId' => $testId, 'name' => $order->name, 'count' => count($resultIds)]).'</p>';
+                                $html .= '<p>' . Yii::t('app', '{testId}. {name}, you have {count} basic type of thinking.', ['testId' => $testId, 'name' => $order->name, 'count' => count($resultIds)]) . '</p>';
                                 break;
                             case 2:
-                                $html .= '<p>' . Yii::t('app', '{testId}. {name}, you have {count} professional inclinations.', ['testId' => $testId, 'name' => $order->name, 'count' => count($resultIds)]).'</p>';
+                                $html .= '<p>' . Yii::t('app', '{testId}. {name}, you have {count} professional inclinations.', ['testId' => $testId, 'name' => $order->name, 'count' => count($resultIds)]) . '</p>';
                                 break;
                             case 3:
-                                $html .= '<p>' . Yii::t('app', '{testId}. {name}, you have {count} primary type of personality.', ['testId' => $testId, 'name' => $order->name, 'count' => count($resultIds)]).'</p>';
+                                $html .= '<p>' . Yii::t('app', '{testId}. {name}, you have {count} primary type of personality.', ['testId' => $testId, 'name' => $order->name, 'count' => count($resultIds)]) . '</p>';
                                 break;
                             default:
                                 break;
@@ -268,18 +275,22 @@ class PostLinkController extends Controller
                                 $html .= '<p><strong>' . $testResult->translate->name . '</strong></p>';
                                 $html .= $testResult->translate->content;
                                 $html .= '<br/>';
+                                if($testResult->translate->file_path)
+                                    $files[] = $testResult->translate->file_path;
                             }
                         }
                     }
 
                     try {
-                        $send = Yii::$app->mailer->compose('test/result', ['content' => $html])
+                        $mail = Yii::$app->mailer->compose('test/result', ['content' => $html])
                             ->setFrom('result@urway.kz')
                             ->setTo($order->email)
-                            ->setSubject('Результаты теста')
-                            ->send();
-
-                        if ($send) {
+                            ->setSubject('Результаты теста');
+                        foreach ($files as $file) {
+                            if(file_exists(Yii::getAlias('@app/web') . $file))
+                                $mail->attach(Yii::getAlias('@app/web') . $file);
+                        }
+                        if ($mail->send()) {
                             $order->is_paid = 1;
                             $order->save();
                         } else {

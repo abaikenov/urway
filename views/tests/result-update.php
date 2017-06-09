@@ -1,6 +1,8 @@
 <?php
 
 use app\models\Lang;
+use dosamigos\fileupload\FileUpload;
+use kartik\file\FileInput;
 use vova07\imperavi\Widget;
 use yii\bootstrap\ActiveForm;
 use yii\helpers\Html;
@@ -13,7 +15,7 @@ $this->title = Yii::t('app', 'Update Result: ') . $model->id;
 $this->params['breadcrumbs'][] = ['label' => Yii::t('app', 'Tests'), 'url' => ['index']];
 $this->params['breadcrumbs'][] = ['label' => $test->name->title, 'url' => ['view', 'id' => $test->id]];
 $this->params['breadcrumbs'][] = ['label' => Yii::t('app', 'Tests Results'), 'url' => ['results', 'id' => Yii::$app->request->get('parent')]];
-$this->params['breadcrumbs'][] = '№'.$model->id;
+$this->params['breadcrumbs'][] = '№' . $model->id;
 $this->params['breadcrumbs'][] = Yii::t('app', 'Update');
 ?>
 <div class="test-update">
@@ -40,7 +42,7 @@ $this->params['breadcrumbs'][] = Yii::t('app', 'Update');
             foreach (Lang::find()->all() as $lang):?>
                 <div role="tabpanel" class="tab-pane <?= Lang::getDefaultLang()->id === $lang->id ? 'active' : '' ?>"
                      id="lang<?= $lang->id ?>">
-                    <?php /** @var \app\models\TestQuestionTranslate $translate */
+                    <?php /** @var \app\models\TestResultTranslate $translate */
                     foreach ($model->translates as $translate):?>
                         <?php if ($translate->lang_id === $lang->id): ?>
                             <?= $form->field($translate, '[' . $translate->id . ']name')->textInput() ?>
@@ -53,7 +55,20 @@ $this->params['breadcrumbs'][] = Yii::t('app', 'Update');
                                         'fullscreen'
                                     ]
                                 ]
-                            ]);  ?>
+                            ]); ?>
+                            <?= $form->field($translate, '[' . $translate->id . ']file')->widget(FileInput::className(), [
+                                'options' => ['accept' => '.doc, .pdf'],
+                                'pluginOptions' => [
+                                    'initialPreview' => [
+                                        "http://upload.wikimedia.org/wikipedia/commons/thumb/e/e1/FullMoon2010.jpg/631px-FullMoon2010.jpg",
+                                    ],
+                                    'initialCaption' => $translate->file_name ? $translate->file_name : 'Файл не выбран',
+                                    'showPreview' => false,
+                                    'showCaption' => true,
+                                    'showRemove' => true,
+                                    'showUpload' => false
+                                ]
+                            ]); ?>
                         <?php endif; ?>
                     <?php endforeach; ?>
                 </div>

@@ -25,6 +25,15 @@ $this->params['breadcrumbs'][] = $this->title;
             'translate.name',
             'translate.description',
             'translate.content:raw',
+            [
+                'attribute' => 'translate.file',
+                'format' => 'raw',
+                'value' => function($model){
+                    if($model->translate->file_name && $model->translate->file_path)
+                        return Html::a($model->translate->file_name, $model->translate->file_path);
+                    return '';
+                }
+            ],
 
             [
                 'class' => 'yii\grid\ActionColumn',

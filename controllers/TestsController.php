@@ -11,9 +11,12 @@ use app\models\TestResultTranslate;
 use Yii;
 use app\models\Test;
 use yii\data\ActiveDataProvider;
+use yii\helpers\FileHelper;
+use yii\helpers\Json;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
+use yii\web\UploadedFile;
 
 /**
  * TestsController implements the CRUD actions for Test model.
@@ -125,7 +128,7 @@ class TestsController extends Controller
         /** @var TestQuestion $model */
         $model = TestQuestion::findOne($id);
 
-        if(!$model)
+        if (!$model)
             return $this->redirect(['questions', 'id' => $parent]);
 
         /** @var Lang $lang */
@@ -183,7 +186,7 @@ class TestsController extends Controller
         /** @var TestResult $model */
         $model = TestResult::findOne($id);
 
-        if(!$model)
+        if (!$model)
             return $this->redirect(['results', 'id' => $parent]);
 
         /** @var Lang $lang */
@@ -208,12 +211,28 @@ class TestsController extends Controller
             $model->code = Yii::$app->request->post('TestResult')['code'];
             /** @var TestResultTranslate $translate */
             foreach ($model->translates as $translate) {
+                $translate->file = UploadedFile::getInstance($translate, $translate->id . '[file]');
+                if ($translate->file) {
+                    $directory = Yii::getAlias('@app/web/docs') . DIRECTORY_SEPARATOR . $translate->lang->url . DIRECTORY_SEPARATOR;
+                    if (!is_dir($directory)) {
+                        FileHelper::createDirectory($directory);
+                    }
+                    $path = $directory . $translate->file->baseName . '.' . $translate->file->extension;
+                    if ($translate->file->saveAs($path))
+                        $translate->file_name = $translate->file->baseName . '.' . $translate->file->extension;
+                        $translate->file_path = '/docs/' . $translate->lang->url . '/' . $translate->file->baseName . '.' . $translate->file->extension;
+                } else {
+                    $translate->file_name = null;
+                    $translate->file_path = null;
+                }
+
                 $data = Yii::$app->request->post('TestResultTranslate')[$translate->id];
                 $translate->name = $data['name'];
                 $translate->description = $data['description'];
                 $translate->content = $data['content'];
                 $translate->save();
             }
+
             $model->save();
 
             return $this->redirect(['results', 'id' => $parent, 'page' => $page]);
