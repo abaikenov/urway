@@ -239,4 +239,26 @@ class SiteController extends Controller
 
         return $this->goHome();
     }
+
+    public function actionMail($email)
+    {
+        Yii::$app->mailer->compose()
+            ->setFrom('result@urway.kz')
+            ->setTo($email)
+            ->setSubject('Баннер')
+            ->setHtmlBody('<a href="http://urway.kz/ru"><img src="http://urway.kz/img/banner_ru.jpg"/></a>')
+            ->send();
+        Yii::$app->mailer->compose()
+            ->setFrom('result@urway.kz')
+            ->setTo($email)
+            ->setSubject('Баннер')
+            ->setHtmlBody('<a href="http://urway.kz/kz"><img src="http://urway.kz/img/banner_kz.jpg"/></a>')
+            ->send();
+        Yii::$app->mailer->compose()
+            ->setFrom('result@urway.kz')
+            ->setTo($email)
+            ->setSubject('Баннер')
+            ->setHtmlBody('<a href="http://urway.kz/en"><img src="http://urway.kz/img/banner_en.jpg"/></a>')
+            ->send();
+    }
 }
