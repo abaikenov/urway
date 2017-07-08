@@ -334,3 +334,7 @@ form.payment button {
 form.payment button:hover {
     background: #D68B13;
 }
+
+.after-payment ul {
+    font-size: 22px; list-style: none; padding: 0;
+}

@@ -31,6 +31,8 @@ app.controller('testingController', ['$http', '$scope', '$location', '$sce', '$c
     };
 
     var start = function (response) {
+        // $ctrl.paymentEnd = true;
+        // $cookies.set('orderId', 7);
         if (response && response.data.is_paid) {
             $ctrl.paymentEnd = true;
             $cookies.remove('orderId');
