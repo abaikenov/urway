@@ -104,7 +104,7 @@ use yii\helpers\Url;
             <div ng-if="$ctrl.stageEnded" class="text-center">
                 <p><?= Yii::t('app', 'Thank you for completing the complete test') ?></p>
                 <p><?= Yii::t('app', 'Please enter your name, e-mail, pay the test and get your result by e-mail.') ?></p>
-                <form class="payment" action="https://testpay.kkb.kz/jsp/process/logon.jsp">
+                <form class="payment" action="https://epay.kkb.kz/jsp/process/logon.jsp">
                     <!-- https://epay.kkb.kz/jsp/process/logon.jsp -->
                     <div class="form-group">
                         <label for="form-name"><?= Yii::t('app', 'Name:') ?></label>
