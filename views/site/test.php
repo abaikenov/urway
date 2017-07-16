@@ -87,9 +87,7 @@ use yii\helpers\Url;
                 <p>
                     - {{$ctrl.results[$ctrl.tableSymbol].description}}
                 </p>
-                <p>
-                    {{$ctrl.results[$ctrl.tableSymbol].content}}
-                </p>
+                <div ng-bind-html="$ctrl.results[$ctrl.tableSymbol].content"></div>
                 <br/>
 <!--                <p style="text-decoration: underline">-->
 <!--                    <span class="text-bold">--><?//= Yii::t('app', 'For a detailed result on your personality type,') ?><!--</span><br/>-->
@@ -159,6 +157,7 @@ use yii\helpers\Url;
 <script src="https://yastatic.net/share2/share.js"></script>
 <script src='/js/jquery.min.js'></script>
 <script src='/js/angular.min.js'></script>
+<script src='/js/angular-sanitize.js'></script>
 <script src='/js/angular-cookies.min.js'></script>
 <script src="/js/angular-route.js"></script>
 <script src='/js/testing.js'></script>

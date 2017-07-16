@@ -1,5 +1,5 @@
 //Define angular app
-var app = angular.module('TestingApp', ['ngRoute', 'ngCookies']).config(function ($routeProvider, $locationProvider) {
+var app = angular.module('TestingApp', ['ngRoute', 'ngCookies', 'ngSanitize']).config(function ($routeProvider, $locationProvider) {
     // use the HTML5 History API
     $locationProvider.html5Mode(true);
 });
@@ -157,6 +157,7 @@ app.controller('testingController', ['$http', '$scope', '$location', '$sce', '$c
     $ctrl.getResult = function () {
         $cookies.putObject('questionnaire', allResults);
         $ctrl.firstStageEnd = true;
+        window.scrollTo(0, 0);
     };
 
     $ctrl.initNextPart = function () {

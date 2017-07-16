@@ -511,6 +511,13 @@ a:focus, a:active {
     font-weight: 600;
 }
 
+@media screen and (max-width: 425px){
+    .navbar .navbar-nav > li > a {
+        margin: 0;
+    }
+}
+
+
 .navbar .navbar-nav > li > a.btn {
     margin: 15px 3px;
     padding: 8px 16px;
