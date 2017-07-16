@@ -160,6 +160,32 @@ app.controller('testingController', ['$http', '$scope', '$location', '$sce', '$c
         window.scrollTo(0, 0);
     };
 
+    $ctrl.backToResult = function () {
+        allResults = $cookies.getObject('questionnaire');
+        $ctrl.firstStageEnd = false;
+        initStage(0);
+        $ctrl.testStarted = true;
+        $ctrl.testEnded = true;
+        $ctrl.tableSymbol = allResults[0].code;
+        Ya.share2(shareElement, {
+            theme: {
+                services: 'facebook,vkontakte',
+                counter: true,
+                lang: 'ru',
+                limit: 3,
+                size: 'm',
+                bare: false
+            },
+            content: {
+                url: $location.protocol() + '://' + $location.host(),
+                title: $('#share-translate').text() + ' - ' + $ctrl.results[$ctrl.tableSymbol].name,
+                description: $ctrl.results[$ctrl.tableSymbol].description,
+                image: $location.protocol() + '://' + $location.host() + '/img/avatars/' + $ctrl.tableSymbol + '.jpg'
+            }
+        });
+        window.scrollTo(0, 0);
+    };
+
     $ctrl.initNextPart = function () {
         $ctrl.needNextPart = false;
         $ctrl.paymentEnd = false;

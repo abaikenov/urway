@@ -132,6 +132,8 @@ use yii\helpers\Url;
                     <input type="hidden" name="PostLink" value="<?= Url::to(['post-link/index'], true) ?>"/>
                     <button type="button" ng-click="$ctrl.payment()"
                             class="startButton"><?= Yii::t('app', 'Proceed to checkout') ?></button>
+                    <button type="button" ng-click="$ctrl.backToResult()" ng-if="$ctrl.firstStageEnd"
+                            class="backButton"><i class="fa fa-arrow-left icon"></i><?= Yii::t('app', 'Back') ?></button>
                     <p style="font-size: 14px" ng-if="$ctrl.firstStageEnd"><?= Yii::t('app', 'Также тест оплатить можно позже на этой же странице')?></p>
                 </form>
             </div>
@@ -143,6 +145,7 @@ use yii\helpers\Url;
             <p ng-if="$ctrl.needNextPart"><?= Yii::t('app', 'Для определения Вашего типа мышления, профессиональных склонностей и профессионального самоопределения мы рекомендуем пройти Основной тест') ?></p>
             <button ng-if="$ctrl.needNextPart" class="nextTestButton"
                     ng-click="$ctrl.initNextPart()"><?= Yii::t('app', 'Basic test') ?></button>
+            <img style="max-width: 100%; margin-top: 15px" src="/img/thank_you.jpg">
         </div>
 
         <footer class="footer">
