@@ -76,6 +76,18 @@ use yii\bootstrap\Html;
                     </a>
                 </li>
 
+                <li>
+                    <a target="_blank" href="https://www.facebook.com/urwaykz">
+                        <i class="fa fa-facebook"></i>
+                    </a>
+                </li>
+
+                <li>
+                    <a target="_blank" href="https://vk.com/urwaykz">
+                        <i class="fa fa-vk"></i>
+                    </a>
+                </li>
+
                 <?php foreach (array_reverse($langs) as $lang): ?>
                     <li class="pull-right hidden-xs hidden-sm">
                         <?= Html::a('', '/' . $lang->url . Yii::$app->getRequest()->getLangUrl(), ['class' => 'lang-icon lang-icon-'.$lang->url]) ?>

@@ -74,10 +74,16 @@ class OrderController extends Controller
             $email = Yii::$app->request->post('email');
             $result = Yii::$app->request->post('result');
 
+            if(count($result) === 1) {
+                $amount = 490;
+            } else {
+                $amount = 990;
+            }
+
             $order = new Order();
             $order->name = $name;
             $order->email = $email;
-            $order->amount = 990;
+            $order->amount = $amount;
             $order->result = json_encode($result);
             if ($order->validate() && $order->save()) {
                 $sign = KkbPayment::process_request($order->id, '398', $order->amount, \Yii::getAlias('@app') . '/paysys/config.txt');

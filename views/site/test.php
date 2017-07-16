@@ -76,7 +76,7 @@ use yii\helpers\Url;
                     </button>
                 </div>
             </form>
-            <div ng-if="$ctrl.testEnded && !$ctrl.stage" class="text-center">
+            <div ng-if="$ctrl.testEnded && !$ctrl.stage && !$ctrl.firstStageEnd" class="text-center">
                 <span id="share-translate" class="hidden"><?= Yii::t('app', 'My psychological portrait')?></span>
                 <p>
                     <img src="/img/avatars/{{$ctrl.tableSymbol}}.jpg" style="width: 100%;"/>
@@ -91,38 +91,42 @@ use yii\helpers\Url;
                     {{$ctrl.results[$ctrl.tableSymbol].content}}
                 </p>
                 <br/>
-                <p style="text-decoration: underline">
-                    <span class="text-bold"><?= Yii::t('app', 'For a detailed result on your personality type,') ?></span><br/>
-                    <?= Yii::t('app', 'You need to pass') ?>
-                </p>
+<!--                <p style="text-decoration: underline">-->
+<!--                    <span class="text-bold">--><?//= Yii::t('app', 'For a detailed result on your personality type,') ?><!--</span><br/>-->
+<!--                    --><?//= Yii::t('app', 'You need to pass') ?>
+<!--                </p>-->
                 <div class="row">
+                    <button class="nextTestButton"
+                            ng-click="$ctrl.getResult()"><?= Yii::t('app', 'Result') ?></button>
                     <button class="nextTestButton"
                             ng-click="$ctrl.nextStage()"><?= Yii::t('app', 'Basic test') ?></button>
                 </div>
             </div>
 
-            <div ng-if="$ctrl.stageEnded" class="text-center">
-                <p><?= Yii::t('app', 'Thank you for completing the complete test') ?></p>
+            <div ng-if="$ctrl.stageEnded || $ctrl.firstStageEnd" class="text-center">
+                <p ng-if="!$ctrl.firstStageEnd"><?= Yii::t('app', 'Thank you for completing the complete test') ?></p>
                 <p><?= Yii::t('app', 'Please enter your name, e-mail, pay the test and get your result by e-mail.') ?></p>
+                <p ng-if="$ctrl.firstStageEnd"><?= Yii::t('app', 'Thank you for completing the complete questionnaire') ?></p>
                 <form class="payment" action="https://epay.kkb.kz/jsp/process/logon.jsp">
                     <!-- https://epay.kkb.kz/jsp/process/logon.jsp -->
                     <div class="form-group">
                         <label for="form-name"><?= Yii::t('app', 'Name:') ?></label>
                         <input type="text" id="form-name" class="form-control" ng-model="$ctrl.order.name"
-                               ng-required="true">
+                               required>
                     </div>
                     <div class="form-group">
                         <label for="form-email"><?= Yii::t('app', 'E-mail:') ?></label>
-                        <input type="email" id="form-email" class="form-control" ng-model="$ctrl.order.email"
-                               ng-required="true">
+                        <input type="text" id="form-email" class="form-control" ng-model="$ctrl.order.email"
+                               required>
                     </div>
                     <div class="form-group">
                         <label for="form-form-email-repeat"><?= Yii::t('app', 'Repeat e-mail:') ?></label>
-                        <input type="email" id="form-email-repeat" class="form-control"
+                        <input type="text" id="form-email-repeat" class="form-control"
                                ng-model="$ctrl.order.emailConfirm"
-                               ng-required="true">
+                               required>
                     </div>
-                    <p><?= Yii::t('app', 'The payment is 990 tenge') ?></p>
+                    <p ng-if="$ctrl.firstStageEnd"><?= Yii::t('app', 'The payment is 490 tenge') ?></p>
+                    <p ng-if="!$ctrl.firstStageEnd"><?= Yii::t('app', 'The payment is 990 tenge') ?></p>
                     <input type="hidden" name="Signed_Order_B64"/>
                     <input type="hidden" name="Language" value="rus"/>
                     <input type="hidden" name="BackLink" value="<?= Url::to(['test'], true) ?>"/>
@@ -130,35 +134,17 @@ use yii\helpers\Url;
                     <input type="hidden" name="PostLink" value="<?= Url::to(['post-link/index'], true) ?>"/>
                     <button type="button" ng-click="$ctrl.payment()"
                             class="startButton"><?= Yii::t('app', 'Proceed to checkout') ?></button>
+                    <p style="font-size: 14px" ng-if="$ctrl.firstStageEnd"><?= Yii::t('app', 'Также тест оплатить можно позже на этой же странице')?></p>
                 </form>
             </div>
         </div>
         <div class="content after-payment" ng-if="$ctrl.paymentEnd" style="text-align: center">
             <h1 class="text-bold"><?= Yii::t('app', 'TEST') ?></h1>
             <p class="tagline"><?= Yii::t('app', '«ВАШЕ ПРИЗВАНИЕ»') ?></p>
-            <p><?= Yii::t('app', 'Мы благодарим Вас за потраченное время на прохождение UrWay.kz. Результат придетв течение 5 минут на указанную почту.') ?></p>
-            <p><?= Yii::t('app', 'Мы надеемся, что результаты UrWay.kz помогут Вам при выборе профессии, хобби, раскрыть таланты, лучше узнать Ваши способности. Снизу мы приводим типичные ошибки при выборе профессии и рекомендации во их избежания.') ?></p>
-            <p style="color: #ff0000; font-weight: bold">Ошибочные причины при выборе профессии:</p>
-            <ul>
-                <li>1. Заработная плата (ориентир исключительно на деньги).</li>
-                <li>2. Престиж, мода профессии (не нужно гнаться за модой, найдите свое собственное призвание).</li>
-                <li>3. "Династийность" (в передаче бизнеса от отца к сыну нет ничего плохого, но это не должен быть приоретом при выборе профессии; идея, что будет "проще пробиться", "легче устроиться" не должны быть привелирующими).</li>
-                <li>4. Выбирать, опираясь исключительно на любимые предметы ("люблю биологию, быть мне медиком"; зачастую наши способности и таланты намного шире одного предмета изучения).</li>
-            </ul>
-            <p style="color: #17AD17; font-weight: bold">Правильные ориентиры при выборе профессии:</p>
-            <ul>
-                <li>1. Интерес, увлечение, любимое занятие (то, чем бы Вы могли заниматься БЕСПЛАТНО!)</li>
-                <li>2. Исходя из того, что лучше и легче всего получается.</li>
-                <li>3. Талант - природное дарование; то, что получается без труда и естественно.</li>
-                <li>4. МЕЧТЫ И ЦЕЛИ по жизни должны сопутствовать Вашему Призванию.</li>
-            </ul>
-            <p style="color: #17AD17; font-weight: bold">Практические рекомендации:</p>
-            <ul>
-                <li>1. Попробовать заняться понравившейся профессией/деятельностью.</li>
-                <li>2. Консультация с успешными людьми этой профессии.</li>
-                <li>3. Не бояться пробовать и экспериментировать на пути к своему Призванию.</li>
-            </ul>
-            <p style="font-size: 18px">При возникновении проблем по получению результата тестов, просим написать нам: <a href="mailto:urway99@gmail.com">urway99@gmail.com</a>.</p>
+            <p><?= Yii::t('app', 'Мы благодарим Вас за потраченное время на прохождение UrWay.kz. Результат придет в течение 5 минут на указанную почту.') ?></p>
+            <p ng-if="$ctrl.needNextPart"><?= Yii::t('app', 'Для определения Вашего типа мышления, профессиональных склонностей и профессионального самоопределения мы рекомендуем пройти Основной тест') ?></p>
+            <button ng-if="$ctrl.needNextPart" class="nextTestButton"
+                    ng-click="$ctrl.initNextPart()"><?= Yii::t('app', 'Basic test') ?></button>
         </div>
 
         <footer class="footer">

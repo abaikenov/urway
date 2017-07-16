@@ -19,6 +19,7 @@ app.controller('testingController', ['$http', '$scope', '$location', '$sce', '$c
         $ctrl.testStarted = false;
         $ctrl.testEnded = false;
         $ctrl.stageEnded = false;
+        $ctrl.firstStageEnd = false;
         $ctrl.counter = 0;
         $ctrl.title = test.title;
         $ctrl.subtitle = test.subtitle;
@@ -33,19 +34,36 @@ app.controller('testingController', ['$http', '$scope', '$location', '$sce', '$c
     var start = function (response) {
         // $ctrl.paymentEnd = true;
         // $cookies.set('orderId', 7);
-        if (response && response.data.is_paid) {
-            $ctrl.paymentEnd = true;
-            $cookies.remove('orderId');
-        } else {
-            $http({
-                method: 'GET',
-                url: '/' + lang + '/site/test-data'
-            }).then(function (response) {
-                console.log(response.data);
-                allTests = response.data;
-                initStage(0);
-            });
-        }
+        $http({
+            method: 'GET',
+            url: '/' + lang + '/site/test-data'
+        }).then(function (resp) {
+            // console.log(response.data);
+            allTests = resp.data;
+            if (response && response.data.is_paid) {
+                if (JSON.parse(response.data.result).length === 1) {
+                    allResults = JSON.parse(response.data.result);
+                    $ctrl.needNextPart = true;
+                    $ctrl.paymentEnd = true;
+                    $cookies.remove('questionnaire');
+                } else {
+                    $ctrl.paymentEnd = true;
+                    $cookies.remove('orderId');
+                }
+            } else {
+                if (undefined !== $cookies.getObject('questionnaire')) {
+                    allResults = $cookies.getObject('questionnaire');
+                    $ctrl.testStarted = true;
+                    $ctrl.testEnded = true;
+                    $ctrl.stage = 0;
+                    $ctrl.firstStageEnd = true;
+                    $ctrl.title = allTests[$ctrl.stage].title;
+                    $ctrl.subtitle = allTests[$ctrl.stage].subtitle;
+                } else {
+                    initStage(0);
+                }
+            }
+        });
     };
 
     $ctrl.init = function () {
@@ -68,7 +86,7 @@ app.controller('testingController', ['$http', '$scope', '$location', '$sce', '$c
     $ctrl.next = function () {
         if ($ctrl.counter + 1 == $ctrl.questionsCount) {
             $ctrl.finish();
-        } else if($ctrl.answers[$ctrl.counter].answer !== undefined){
+        } else if ($ctrl.answers[$ctrl.counter].answer !== undefined) {
             $ctrl.counter = $ctrl.counter + 1;
         }
     };
@@ -99,6 +117,7 @@ app.controller('testingController', ['$http', '$scope', '$location', '$sce', '$c
                 allResults.push({code: $ctrl.tableSymbol});
                 break;
             case 1:
+                $cookies.remove('questionnaire');
                 initStage(2);
                 break;
             case 2:
@@ -132,8 +151,18 @@ app.controller('testingController', ['$http', '$scope', '$location', '$sce', '$c
             }
         }
         ;
-        console.log(more);
         return more > 0 ? a : b;
+    };
+
+    $ctrl.getResult = function () {
+        $cookies.putObject('questionnaire', allResults);
+        $ctrl.firstStageEnd = true;
+    };
+
+    $ctrl.initNextPart = function () {
+        $ctrl.needNextPart = false;
+        $ctrl.paymentEnd = false;
+        initStage(1);
     };
 
     $ctrl.nextStage = function () {
@@ -145,7 +174,7 @@ app.controller('testingController', ['$http', '$scope', '$location', '$sce', '$c
     };
 
     $ctrl.payment = function () {
-        if ($ctrl.order.email !== $ctrl.order.emailConfirm) {
+        if (!$ctrl.order.email || ($ctrl.order.email !== $ctrl.order.emailConfirm)) {
             alert('Email-ы должны совпадать');
         } else {
             $ctrl.order.result = allResults;
