@@ -32,6 +32,20 @@ $this->params['breadcrumbs'][] = $this->title;
                     return date('d.m.Y H:i:s', $model->date_create);
                 },
             ],
+
+            [
+                'class' => 'yii\grid\ActionColumn',
+                'template' => '{send}',
+                'buttons' => [
+                    'send' => function ($url, $model) {
+                        return Html::a('<span class="glyphicon glyphicon-send"></span>', $url, [
+                            'title' => Yii::t('yii', 'Send'),
+                            'target' => '_blank'
+                        ]);
+
+                    },
+                ]
+            ],
         ],
     ]); ?>
 </div>
