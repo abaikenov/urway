@@ -6,6 +6,7 @@ use app\models\Lang;
 use app\models\Test;
 use app\models\TestName;
 use app\models\TestQuestion;
+use app\models\TestResult;
 use Yii;
 use yii\filters\AccessControl;
 use yii\helpers\Url;
@@ -65,9 +66,23 @@ class SiteController extends Controller
         return $this->renderPartial('index', ['langs' => $langs]);
     }
 
-    public function actionTest()
+    public function actionTest($symbol = null)
     {
-        return $this->renderPartial('test');
+        if(null !== $symbol) {
+            $testResult = TestResult::find()->where(['test_id' => 1, 'code' => $symbol])->one();
+            $image = '/img/avatars/' . $symbol . '.jpg';
+            $title = $testResult->translate ?  $testResult->translate->name : '';
+            $description = $testResult->translate ?  $testResult->translate->description : '';
+        } else {
+            $image = '/img/header.jpg';
+            $title = Yii::t('app', 'FIND YOUR CALL');
+            $description = Yii::t('app', 'The test was developed by a group of psychologists to determine your vocation.');
+        }
+        return $this->renderPartial('test', [
+            'image' => $image,
+            'title' => $title,
+            'description' => $description,
+        ]);
     }
 
     public function actionTestData()

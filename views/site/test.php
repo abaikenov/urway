@@ -14,6 +14,11 @@ use yii\helpers\Url;
     <link href="/css/font-awesome.min.css" rel="stylesheet">
     <!-- <link href='https://fonts.googleapis.com/css?family=Ubuntu+Condensed&subset=latin,cyrillic' rel='stylesheet' type='text/css'> -->
     <link href='/css/style.css' rel='stylesheet' type='text/css'>
+
+    <meta property="og:url" content="http://urway.kz<?= Yii::$app->request->url?>" />
+    <meta property="og:image" content="http://urway.kz<?= $image?>" />
+    <meta property="og:title" content="<?= $title?>" />
+    <meta property="og:description" content="<?= $description?>" />
 </head>
 <body lang="<?= Lang::getCurrent()->url ?>" class="stage-{{$ctrl.stage}}">
 <div>
@@ -89,10 +94,10 @@ use yii\helpers\Url;
                 </p>
                 <div ng-bind-html="$ctrl.results[$ctrl.tableSymbol].content"></div>
                 <br/>
-<!--                <p style="text-decoration: underline">-->
-<!--                    <span class="text-bold">--><?//= Yii::t('app', 'For a detailed result on your personality type,') ?><!--</span><br/>-->
-<!--                    --><?//= Yii::t('app', 'You need to pass') ?>
-<!--                </p>-->
+                <!--                <p style="text-decoration: underline">-->
+                <!--                    <span class="text-bold">--><?//= Yii::t('app', 'For a detailed result on your personality type,') ?><!--</span><br/>-->
+                <!--                    --><?//= Yii::t('app', 'You need to pass') ?>
+                <!--                </p>-->
                 <div class="row">
                     <button class="nextTestButton"
                             ng-click="$ctrl.getResult()"><?= Yii::t('app', 'Result') ?></button>

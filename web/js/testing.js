@@ -108,8 +108,8 @@ app.controller('testingController', ['$http', '$scope', '$location', '$sce', '$c
                         bare: false
                     },
                     content: {
-                        url: $location.protocol() + '://' + $location.host(),
-                        title: $('#share-translate').text() + ' - ' + $ctrl.results[$ctrl.tableSymbol].name,
+                        url: $location.protocol() + '://' + $location.host() + $location.path() + '?symbol=' + $ctrl.tableSymbol,
+                        title: 'Мой психологический портрет - ' + $ctrl.results[$ctrl.tableSymbol].name,
                         description: $ctrl.results[$ctrl.tableSymbol].description,
                         image: $location.protocol() + '://' + $location.host() + '/img/avatars/' + $ctrl.tableSymbol + '.jpg'
                     }
@@ -177,8 +177,8 @@ app.controller('testingController', ['$http', '$scope', '$location', '$sce', '$c
                 bare: false
             },
             content: {
-                url: $location.protocol() + '://' + $location.host(),
-                title: $('#share-translate').text() + ' - ' + $ctrl.results[$ctrl.tableSymbol].name,
+                url: $location.protocol() + '://' + $location.host() + $location.path() + '?symbol=' + $ctrl.tableSymbol,
+                title: 'Мой психологический портрет - ' + $ctrl.results[$ctrl.tableSymbol].name,
                 description: $ctrl.results[$ctrl.tableSymbol].description,
                 image: $location.protocol() + '://' + $location.host() + '/img/avatars/' + $ctrl.tableSymbol + '.jpg'
             }
@@ -241,8 +241,9 @@ app.controller('testingController', ['$http', '$scope', '$location', '$sce', '$c
             bare: false
         },
         content: {
-            url: $location.protocol() + '://' + $location.host(),
-            title: 'ВАШ ПСИХОЛОГИЧЕСКИЙ ПОРТРЕТ',
+            url: $location.protocol() + '://' + $location.host() + $location.path(),
+            title: 'НАЙДИ СВОЕ ПРИЗВАНИЕ',
+            description: 'Тест разработан группой психологов для определения Вашего призвания.',
             image: $location.protocol() + '://' + $location.host() + '/img/header.jpg'
         }
     });

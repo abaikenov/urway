@@ -1315,6 +1315,66 @@ a:focus, a:active {
     padding-top: 30px;
 }
 
+@media screen  and (max-width: 767px){
+    .landing-page .parallax .parallax-background img {
+        left: -16%;
+    }
+}
+
+@media screen  and (max-width: 732px){
+    .landing-page .parallax .parallax-background img {
+        left: -18%;
+    }
+}
+
+@media screen  and (max-width: 667px){
+    .landing-page .parallax .parallax-background img {
+        left: -24%;
+    }
+}
+
+@media screen  and (max-width: 640px){
+    .landing-page .parallax .parallax-background img {
+        left: -27%;
+    }
+}
+
+@media screen  and (max-width: 575px){
+    .landing-page .parallax .parallax-background img {
+        left: -36%;
+    }
+}
+
+@media screen  and (max-width: 425px){
+    .landing-page .parallax .parallax-background img {
+        left: -65%;
+    }
+}
+
+@media screen  and (max-width: 414px){
+    .landing-page .parallax .parallax-background img {
+        left: -68%;
+    }
+}
+
+@media screen  and (max-width: 375px){
+    .landing-page .parallax .parallax-background img {
+        left: -81%;
+    }
+}
+
+@media screen  and (max-width: 360px){
+    .landing-page .parallax .parallax-background img {
+        left: -87%;
+    }
+}
+
+@media screen  and (max-width: 320px){
+    .landing-page .parallax .parallax-background img {
+        left: -103%;
+    }
+}
+
 @media (max-width: 767px) {
     .nav > li {
         text-align: center;
@@ -1350,8 +1410,8 @@ a:focus, a:active {
     }
 
     .landing-page .parallax .parallax-background img {
-        /*display: none;*/
         height: 100%;
+        width: auto;
     }
 
     .btn-lg {
