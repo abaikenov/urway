@@ -3,6 +3,7 @@
 namespace app\controllers;
 
 use app\components\payment\KkbPayment;
+use Swift_TransportException;
 use Yii;
 use app\models\Order;
 use yii\data\ActiveDataProvider;
@@ -98,5 +99,32 @@ class OrderController extends Controller
         return [
             'error' => 'Bad request'
         ];
+    }
+
+    public function actionSend($id)
+    {
+        Yii::$app->response->format = Response::FORMAT_RAW;
+        if($order = Order::findOne($id)) {
+            $result = $order->getResult();
+            try {
+                $mail = Yii::$app->mailer->compose('test/result', ['content' => $result['body']])
+                    ->setFrom('result@urway.kz')
+                    ->setTo($order->email)
+                    ->setSubject('Результаты теста');
+                foreach ($result['files'] as $file) {
+                    if (file_exists(Yii::getAlias('@app/web') . $file))
+                        $mail->attach(Yii::getAlias('@app/web') . $file);
+                }
+                if ($mail->send()) {
+                    echo 'Результат успешно отправлен на почту '. $order->email;
+                } else {
+                    echo 'Не удалось отправить сообщение';
+                }
+            } catch (Swift_TransportException $e) {
+                echo 'Не удалось отправить сообщение: '.$e->getMessage();
+            }
+        }
+        else
+            echo 'Заказ не найден!';
     }
 }

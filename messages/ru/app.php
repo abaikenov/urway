@@ -100,4 +100,5 @@ return [
     '{testId}. {name}, you have {count} professional inclinations.' => '{testId}. {name}, у Вас {count} основное(-ых) профессиональных склонностей.',
     '{testId}. {name}, you have {count} primary type of personality.' => '{testId}. {name}, у Вас {count} основное(-ых) типа личности.',
     'Result' => 'Результат',
+    'Send' => 'Отправить результат',
 ];

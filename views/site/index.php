@@ -304,6 +304,8 @@ use yii\bootstrap\Html;
                      data-services="vkontakte,facebook,whatsapp"
                      data-size="m" data-limit="3"></div>
                 <p style="padding-top:0px;">
+                    Email: <a href="mailto:urway99@gmail.com">urway99@gmail.com</a>
+                    <br/>
                     &copy; 2016 <a href="<?= \yii\helpers\Url::base() ?>">urway.kz</a>
                 </p>
             </div>
