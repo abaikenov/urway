@@ -265,6 +265,7 @@ class Order extends \yii\db\ActiveRecord
                                 29 => "false",
                                 30 => "false",
                                 35 => "false",
+                                39 => "false",
                                 42 => "false",
                             ]
                         ];
