@@ -104,6 +104,7 @@ use yii\helpers\Url;
                     <button class="nextTestButton"
                             ng-click="$ctrl.nextStage()"><?= Yii::t('app', 'Basic test') ?></button>
                 </div>
+                <p><a href="<?= Url::to('example')?>" target="_blank" style="text-decoration: underline; font-size: 14px; text-transform: uppercase;">Пример результата</a></p>
             </div>
 
             <div ng-if="$ctrl.stageEnded || $ctrl.firstStageEnd" class="text-center">

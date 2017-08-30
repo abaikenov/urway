@@ -55,6 +55,7 @@ $config = [
             'rules' => [
                 '/' => 'site/index',
                 'test' => 'site/test',
+                'example' => 'site/example',
                 '<controller:\w+>/<action:\w+>/*' => '<controller>/<action>',
             ]
         ],
