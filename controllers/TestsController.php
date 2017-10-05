@@ -221,9 +221,6 @@ class TestsController extends Controller
                     if ($translate->file->saveAs($path))
                         $translate->file_name = $translate->file->baseName . '.' . $translate->file->extension;
                         $translate->file_path = '/docs/' . $translate->lang->url . '/' . $translate->file->baseName . '.' . $translate->file->extension;
-                } else {
-                    $translate->file_name = null;
-                    $translate->file_path = null;
                 }
 
                 $data = Yii::$app->request->post('TestResultTranslate')[$translate->id];

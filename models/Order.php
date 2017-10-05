@@ -75,7 +75,8 @@ class Order extends \yii\db\ActiveRecord
         $questionnaire = $allResults[0];
         unset($allResults[0]);
         $questionnaireResult = TestResult::find()->where(['test_id' => 1, 'code' => $questionnaire->code])->one();
-        $files[] = $questionnaireResult->translate->file_path;
+        if($questionnaireResult->translate->file_path)
+            $files[] = $questionnaireResult->translate->file_path;
         $html = '';
 
         if (count($allResults)) {
