@@ -99,12 +99,12 @@ use yii\helpers\Url;
                 <!--                    --><?//= Yii::t('app', 'You need to pass') ?>
                 <!--                </p>-->
                 <div class="row">
-                    <button class="nextTestButton"
-                            ng-click="$ctrl.getResult()"><?= Yii::t('app', 'Result') ?></button>
+<!--                    <button class="nextTestButton"-->
+<!--                            ng-click="$ctrl.getResult()">--><?//= Yii::t('app', 'Result') ?><!--</button>-->
                     <button class="nextTestButton"
                             ng-click="$ctrl.nextStage()"><?= Yii::t('app', 'Basic test') ?></button>
                 </div>
-                <p><a href="<?= Url::to('example')?>" target="_blank" style="text-decoration: underline; font-size: 14px; text-transform: uppercase;">Пример результата</a></p>
+<!--                <p><a href="--><?//= Url::to('example')?><!--" target="_blank" style="text-decoration: underline; font-size: 14px; text-transform: uppercase;">--><?//= Yii::t('app', 'For school link') ?><!--</a></p>-->
             </div>
 
             <div ng-if="$ctrl.stageEnded || $ctrl.firstStageEnd" class="text-center">
@@ -129,18 +129,33 @@ use yii\helpers\Url;
                                ng-model="$ctrl.order.emailConfirm"
                                required>
                     </div>
-                    <p ng-if="$ctrl.firstStageEnd"><?= Yii::t('app', 'The payment is 490 tenge') ?></p>
-                    <p ng-if="!$ctrl.firstStageEnd"><?= Yii::t('app', 'The payment is 990 tenge') ?></p>
-                    <input type="hidden" name="Signed_Order_B64"/>
-                    <input type="hidden" name="Language" value="rus"/>
-                    <input type="hidden" name="BackLink" value="<?= Url::to(['test'], true) ?>"/>
-                    <input type="hidden" name="FailureLink" value="<?= Url::to(['test'], true) ?>"/>
-                    <input type="hidden" name="PostLink" value="<?= Url::to(['post-link/index'], true) ?>"/>
-                    <button type="button" ng-click="$ctrl.payment()"
-                            class="startButton"><?= Yii::t('app', 'Proceed to checkout') ?></button>
-                    <button type="button" ng-click="$ctrl.backToResult()" ng-if="$ctrl.firstStageEnd"
-                            class="backButton"><i class="fa fa-arrow-left icon"></i><?= Yii::t('app', 'Back') ?></button>
-                    <p style="font-size: 14px" ng-if="$ctrl.firstStageEnd"><?= Yii::t('app', 'Также тест оплатить можно позже на этой же странице')?></p>
+
+                    <div ng-if="!$ctrl.payByKey">
+                        <p ng-if="$ctrl.firstStageEnd"><?= Yii::t('app', 'The payment is 490 tenge') ?></p>
+                        <p ng-if="!$ctrl.firstStageEnd"><?= Yii::t('app', 'The payment is 990 tenge') ?></p>
+                        <input type="hidden" name="Signed_Order_B64"/>
+                        <input type="hidden" name="Language" value="rus"/>
+                        <input type="hidden" name="BackLink" value="<?= Url::to(['test'], true) ?>"/>
+                        <input type="hidden" name="FailureLink" value="<?= Url::to(['test'], true) ?>"/>
+                        <input type="hidden" name="PostLink" value="<?= Url::to(['post-link/index'], true) ?>"/>
+                        <button type="button" ng-click="$ctrl.payment()"
+                                class="startButton"><?= Yii::t('app', 'Proceed to checkout') ?></button>
+                        <button type="button" ng-click="$ctrl.payByKey = true"
+                                class="startButton"><?= Yii::t('app', 'I have key') ?></button>
+                        <button type="button" ng-click="$ctrl.backToResult()" ng-if="$ctrl.firstStageEnd"
+                                class="backButton"><i class="fa fa-arrow-left icon"></i><?= Yii::t('app', 'Back') ?></button>
+                        <p style="font-size: 14px" ng-if="$ctrl.firstStageEnd"><?= Yii::t('app', 'Также тест оплатить можно позже на этой же странице')?></p>
+                    </div>
+                    <div ng-if="$ctrl.payByKey">
+                        <div class="form-group">
+                            <label for="key"><?= Yii::t('app', 'Enter key:') ?></label>
+                            <input type="text" id="key" class="form-control"
+                                   ng-model="$ctrl.order.key"
+                                   required>
+                        </div>
+                        <button type="button" ng-click="$ctrl.key()" class="startButton" style="width: 180px;"><?= Yii::t('app', 'Get result') ?></button>
+                        <button type="button" ng-click="$ctrl.payByKey = false" class="backButton"><?= Yii::t('app', 'Back') ?></button>
+                    </div>
                 </form>
             </div>
         </div>
@@ -170,6 +185,7 @@ use yii\helpers\Url;
 <script src='/js/angular-cookies.min.js'></script>
 <script src="/js/angular-route.js"></script>
 <script src='/js/testing.js'></script>
+<script src='/js/sweetalert.min.js'></script>
 
 
 <script>

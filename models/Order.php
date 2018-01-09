@@ -12,6 +12,7 @@ use Yii;
  * @property string $email
  * @property integer $is_paid
  * @property integer $amount
+ * @property integer $key
  * @property string $result
  * @property integer $date_update
  * @property integer $date_create
@@ -46,7 +47,7 @@ class Order extends \yii\db\ActiveRecord
     {
         return [
             [['name', 'email', 'amount', 'result'], 'required'],
-            [['is_paid', 'amount', 'date_update', 'date_create'], 'integer'],
+            [['is_paid', 'amount', 'key', 'date_update', 'date_create'], 'integer'],
             [['result'], 'safe'],
             [['name', 'email'], 'string', 'max' => 255],
         ];
@@ -63,6 +64,7 @@ class Order extends \yii\db\ActiveRecord
             'email' => Yii::t('app', 'Email'),
             'is_paid' => Yii::t('app', 'Is Paid'),
             'amount' => Yii::t('app', 'Amount'),
+            'key' => Yii::t('app', 'Key'),
             'date_update' => Yii::t('app', 'Date Update'),
             'date_create' => Yii::t('app', 'Date Create'),
         ];

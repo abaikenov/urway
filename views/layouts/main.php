@@ -38,6 +38,7 @@ AppAsset::register($this);
         'items' => [
             ['label' => 'Тесты', 'url' => ['/tests']],
             ['label' => 'Заказы', 'url' => ['/order']],
+            ['label' => 'Школы', 'url' => ['/school']],
             ['label' => 'Языки', 'url' => ['/lang']],
             Yii::$app->user->isGuest ? (
                 ['label' => 'Login', 'url' => ['/site/login']]

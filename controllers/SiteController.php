@@ -2,7 +2,9 @@
 
 namespace app\controllers;
 
+use app\components\payment\KkbPayment;
 use app\models\Lang;
+use app\models\School;
 use app\models\Test;
 use app\models\TestName;
 use app\models\TestQuestion;
@@ -63,7 +65,20 @@ class SiteController extends Controller
     public function actionIndex()
     {
         $langs = Lang::find()->all();
-        return $this->renderPartial('index', ['langs' => $langs]);
+        $school = new School();
+        if ($school->load(Yii::$app->request->post())) {
+            $school->amount = 25000;
+            $school->generateKey();
+            $school->save();
+            $sign = KkbPayment::process_request($school->id, '398', $school->amount, \Yii::getAlias('@app') . '/paysys/config.txt');
+            $this->redirect(['confirm-school', 'id' => $school->id, 'sign' => $sign]);
+        }
+        return $this->renderPartial('index', ['langs' => $langs, 'school' => $school]);
+    }
+
+    public function actionConfirmSchool($id, $sign)
+    {
+        return $this->renderPartial('confirm-school', ['id' => $id, 'sign' => $sign]);
     }
 
     public function actionTest($symbol = null)

@@ -11,6 +11,7 @@ use app\models\TestResultTranslate;
 use Yii;
 use app\models\Test;
 use yii\data\ActiveDataProvider;
+use yii\filters\AccessControl;
 use yii\helpers\FileHelper;
 use yii\helpers\Json;
 use yii\web\Controller;
@@ -29,6 +30,15 @@ class TestsController extends Controller
     public function behaviors()
     {
         return [
+            'access' => [
+                'class' => AccessControl::className(),
+                'rules' => [
+                    [
+                        'allow' => true,
+                        'roles' => ['@'],
+                    ],
+                ],
+            ],
             'verbs' => [
                 'class' => VerbFilter::className(),
                 'actions' => [

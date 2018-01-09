@@ -69,7 +69,7 @@ class LangRequest extends Request
             throw new InvalidConfigException('Unable to determine the path info of the current request.');
         }
 
-        if ($pathInfo[0] === '/') {
+        if ($pathInfo && $pathInfo[0] === '/') {
             $pathInfo = substr($pathInfo, 1);
         }
 

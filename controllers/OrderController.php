@@ -3,6 +3,7 @@
 namespace app\controllers;
 
 use app\components\payment\KkbPayment;
+use app\models\School;
 use Swift_TransportException;
 use Yii;
 use app\models\Order;
@@ -94,6 +95,74 @@ class OrderController extends Controller
                 ];
             } else
                 return $order->errors;
+        }
+
+        return [
+            'error' => 'Bad request'
+        ];
+    }
+
+    public function actionCreateWithKey()
+    {
+        Yii::$app->response->format = Response::FORMAT_JSON;
+
+        if (Yii::$app->request->isPost) {
+            $name = Yii::$app->request->post('name');
+            $email = Yii::$app->request->post('email');
+            $result = Yii::$app->request->post('result');
+            $key = Yii::$app->request->post('key');
+
+            $school = School::findOne(['key' => $key]);
+            if($school && $school->useable_count > 0) {
+                $order = new Order();
+                $order->name = $name;
+                $order->email = $email;
+                $order->amount = 0;
+                $order->is_paid = 1;
+                $order->key = $school->key;
+                $order->result = json_encode($result);
+                if ($order->validate() && $order->save()) {
+                    $result = $order->getResult();
+                    try {
+                        $mail = Yii::$app->mailer->compose('test/result', ['content' => $result['body']])
+                            ->setFrom('result@urway.kz')
+                            ->setTo($order->email)
+                            ->setSubject('Результаты теста');
+                        foreach ($result['files'] as $file) {
+                            if (file_exists(Yii::getAlias('@app/web') . $file))
+                                $mail->attach(Yii::getAlias('@app/web') . $file);
+                        }
+                        if ($mail->send()) {
+                            $school->useable_count = $school->useable_count - 1;
+                            $school->save();
+                            return [
+                                'success' => true,
+                                'id' => $order->id,
+                            ];
+                        } else {
+                            return [
+                                'success' => false,
+                                'error' => 'Не удалось использовать ключ',
+                            ];
+                        }
+                    } catch (Swift_TransportException $e) {
+                        return [
+                            'success' => false,
+                            'error' => 'Не удалось использовать ключ',
+                        ];
+                    }
+
+                } else
+                    return [
+                        'success' => false,
+                        'error' => $order->errors,
+                    ];
+            } else {
+                return [
+                    'success' => false,
+                    'error' => Yii::t('app', 'Invalid key!')
+                ];
+            }
         }
 
         return [

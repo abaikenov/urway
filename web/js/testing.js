@@ -19,6 +19,7 @@ app.controller('testingController', ['$http', '$scope', '$location', '$sce', '$c
         $ctrl.testStarted = false;
         $ctrl.testEnded = false;
         $ctrl.stageEnded = false;
+        $ctrl.payByKey = false;
         $ctrl.firstStageEnd = false;
         $ctrl.counter = 0;
         $ctrl.title = test.title;
@@ -51,17 +52,18 @@ app.controller('testingController', ['$http', '$scope', '$location', '$sce', '$c
                     $cookies.remove('orderId');
                 }
             } else {
-                if (undefined !== $cookies.getObject('questionnaire')) {
-                    allResults = $cookies.getObject('questionnaire');
-                    $ctrl.testStarted = true;
-                    $ctrl.testEnded = true;
-                    $ctrl.stage = 0;
-                    $ctrl.firstStageEnd = true;
-                    $ctrl.title = allTests[$ctrl.stage].title;
-                    $ctrl.subtitle = allTests[$ctrl.stage].subtitle;
-                } else {
-                    initStage(0);
-                }
+                initStage(0);
+                // if (undefined !== $cookies.getObject('questionnaire')) {
+                //     allResults = $cookies.getObject('questionnaire');
+                //     $ctrl.testStarted = true;
+                //     $ctrl.testEnded = true;
+                //     $ctrl.stage = 0;
+                //     $ctrl.firstStageEnd = true;
+                //     $ctrl.title = allTests[$ctrl.stage].title;
+                //     $ctrl.subtitle = allTests[$ctrl.stage].subtitle;
+                // } else {
+                //     initStage(0);
+                // }
             }
         });
     };
@@ -215,6 +217,28 @@ app.controller('testingController', ['$http', '$scope', '$location', '$sce', '$c
                     var form = $('form.payment');
                     form.find('input[name="Signed_Order_B64"]').val(response.sign);
                     form.submit();
+                }
+            });
+        }
+    };
+
+    $ctrl.key = function () {
+        if (!$ctrl.order.email || ($ctrl.order.email !== $ctrl.order.emailConfirm)) {
+            swal('Email-ы должны совпадать');
+        } else if(!$ctrl.order.key) {
+            swal('Введите ключ')
+        } else {
+            $ctrl.order.result = allResults;
+            $.ajax({
+                method: 'POST',
+                url: '/order/create-with-key',
+                data: $ctrl.order
+            }).then(function (response) {
+                if (response.success) {
+                    $cookies.put('orderId', response.id);
+                    location.reload();
+                } else {
+                    swal(response.error);
                 }
             });
         }

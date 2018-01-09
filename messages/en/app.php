@@ -16,6 +16,7 @@ return [
     'Test' => 'Test',
     'Find your Vocation!' => 'Find your VOCATION!',
     'Pass the TEST' => 'Pass the TEST',
+    'For school' => 'For school',
     'Statistics' => 'Statistics',
     'Almost 73% of people around the world do not work according to their vocation.' => 'Almost 73% of people around the world do not work by their vocation.',
     'Lost Opportunities' => 'Lost opportunities',
@@ -43,4 +44,13 @@ return [
     'Start the test' => 'Pass the TEST',
     'The payment is 990 tenge' => 'The payment is 990 KZT',
     '«YOUR VOICE»' => '«YOUR VOCATION»',
+    'For school title' => 'Dear school principals!',
+    'For school text' => 'Students of your schools are invited to take the UrWay.kz test, which will help them determine their direction in choosing a profession and their vocation. You can learn more about the test in the "Test" section.',
+    'For school link' => 'Example result',
+    'For school subtext' => 'You are invited to access the UrWay.kz tests for students in your school. Access is a 6-digit password that students can use after passing the tests to get the result. The password can be used up to 250 times, i.e. is designed for 250 students. The cost of access is 25 000 tenge. On 100 tenge from 1 student.',
+    'For school subtext2' => 'Enter the name of your school and email address. After payment, a password will be entered on the entered e-mail address, which can be used by your students to get results after passing the tests.',
+    'For school subtext3' => 'Instructions for passing the tests.',
+    'For school subtext4' => 'After receiving the password, the student enters the main page of the site, presses "Pass the test" and passes all the tests. At the end, after passing all the tests, enters a password and a personal email address. The student\'s results will come to his email address.',
+    'For school subtext5' => 'If you have any questions, write to us by e-mail: <a href="mailto:urway99@gmail.com">urway99@gmail.com</a>',
+
 ];

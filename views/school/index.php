@@ -6,10 +6,10 @@ use yii\grid\GridView;
 /* @var $this yii\web\View */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
-$this->title = Yii::t('app', 'Orders');
+$this->title = Yii::t('app', 'Schools');
 $this->params['breadcrumbs'][] = $this->title;
 ?>
-<div class="order-index">
+<div class="school-index">
 
     <h1><?= Html::encode($this->title) ?></h1>
 
@@ -19,6 +19,8 @@ $this->params['breadcrumbs'][] = $this->title;
             'id',
             'name',
             'email:email',
+            'key',
+            'useable_count',
             'is_paid:boolean',
             [
                 'attribute' => 'amount',
@@ -26,7 +28,6 @@ $this->params['breadcrumbs'][] = $this->title;
                     return $model->amount.' тг.';
                 },
             ],
-            'key',
             [
                 'attribute' => 'date_create',
                 'value' => function($model) {
@@ -40,7 +41,7 @@ $this->params['breadcrumbs'][] = $this->title;
                 'buttons' => [
                     'send' => function ($url, $model) {
                         return Html::a('<span class="glyphicon glyphicon-send"></span>', $url, [
-                            'title' => Yii::t('yii', 'Send'),
+                            'title' => Yii::t('app', 'Send key'),
                             'target' => '_blank'
                         ]);
 
