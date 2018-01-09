@@ -104,6 +104,11 @@ class School extends \yii\db\ActiveRecord
 
     public function getContent()
     {
-        return $this->key;
+        $content = '<p>Ваш пароль:<br/>';
+        $content .= $this->key;
+        $content .= '</p>';
+        $content .= '<p>Пароль может быть использован не более 250 раз.</p>';
+        $content .= '<p>В случае возникновения вопросов, напишите нам на e-mail: <a href="mailto: urway99@gmail.com">urway99@gmail.com</a></p>';
+        return $content;
     }
 }
