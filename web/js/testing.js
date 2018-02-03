@@ -222,6 +222,7 @@ app.controller('testingController', ['$http', '$scope', '$location', '$sce', '$c
         }
     };
 
+
     $ctrl.key = function () {
         if (!$ctrl.order.email || ($ctrl.order.email !== $ctrl.order.emailConfirm)) {
             swal('Email-ы должны совпадать');
@@ -231,7 +232,7 @@ app.controller('testingController', ['$http', '$scope', '$location', '$sce', '$c
             $ctrl.order.result = allResults;
             $.ajax({
                 method: 'POST',
-                url: '/order/create-with-key',
+                url: '/' + lang + '/order/create-with-key',
                 data: $ctrl.order
             }).then(function (response) {
                 if (response.success) {

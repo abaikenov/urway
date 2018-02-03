@@ -69,6 +69,7 @@ return [
     '{testId}. {name}, you have {count} professional inclinations.' => '{testId}. {name}, сізде {count} басты кәсіби бейімділік бар.',
     '{testId}. {name}, you have {count} primary type of personality.' => '{testId}. {name}, сізде {count} басты жеке тулга бар.',
     'Get access' => 'Рұқсат алу',
+    'Get result' => 'Нәтижені алу',
     'For school title' => 'Құрметті мектеп директорлары!',
     'For school text' => 'Сіздердің мектеп оқушыларыңыз UrWay.kz сынағына қатысуға шақырамыз. Бұл олардың мамандық таңдауға, өз бағытын анықтауға және өмірдегі орнын табуға көмектеседі. Сынақтама туралы «Тест» бөлімінен қарай аласыз.',
     'For school link' => 'НӘТИЖЕНІҢ ҮЛГІСІ',
@@ -82,4 +83,6 @@ return [
     'Confirm Email' => 'Электрондық поштаны қайталаңыз',
     'I have key' => 'Пароль',
     'Test result' => 'Тест нәтижесі',
+    'Enter key:' => 'Пароль',
+    'After payment text' => 'UrWay.kz өтуге уақыт бөлгеніңіз үшін алғысымызды білдіреміз. Нәтиже еңгізілген электрондық поштаға 5 минут ішінде келеді.',
 ];

@@ -52,5 +52,6 @@ return [
     'For school subtext3' => 'Instructions for passing the tests.',
     'For school subtext4' => 'After receiving the password, the student enters the main page of the site, presses "Pass the test" and passes all the tests. At the end, after passing all the tests, enters a password and a personal email address. The student\'s results will come to his email address.',
     'For school subtext5' => 'If you have any questions, write to us by e-mail: <a href="mailto:urway99@gmail.com">urway99@gmail.com</a>',
+    'After payment text' => 'We thank you for the time you spent on UrWay.kz. The result will come in 5 minutes to the specified e-mail.',
 
 ];

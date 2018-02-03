@@ -162,7 +162,7 @@ use yii\helpers\Url;
         <div class="content after-payment" ng-if="$ctrl.paymentEnd" style="text-align: center">
             <h1 class="text-bold"><?= Yii::t('app', 'TEST') ?></h1>
             <p class="tagline"><?= Yii::t('app', '«ВАШЕ ПРИЗВАНИЕ»') ?></p>
-            <p><?= Yii::t('app', 'Мы благодарим Вас за потраченное время на прохождение UrWay.kz. Результат придет в течение 5 минут на указанную почту.') ?></p>
+            <p><?= Yii::t('app', 'After payment text') ?></p>
             <p ng-if="$ctrl.needNextPart"><?= Yii::t('app', 'Для определения Вашего типа мышления, профессиональных склонностей и профессионального самоопределения мы рекомендуем пройти Основной тест') ?></p>
             <button ng-if="$ctrl.needNextPart" class="nextTestButton"
                     ng-click="$ctrl.initNextPart()"><?= Yii::t('app', 'Basic test') ?></button>
