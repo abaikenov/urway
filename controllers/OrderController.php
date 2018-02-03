@@ -61,7 +61,7 @@ class OrderController extends Controller
     public function actionGet($id)
     {
         Yii::$app->response->format = Response::FORMAT_JSON;
-        if($order = Order::findOne($id))
+        if ($order = Order::findOne($id))
             return Order::findOne($id);
         else
             return [];
@@ -76,7 +76,7 @@ class OrderController extends Controller
             $email = Yii::$app->request->post('email');
             $result = Yii::$app->request->post('result');
 
-            if(count($result) === 1) {
+            if (count($result) === 1) {
                 $amount = 490;
             } else {
                 $amount = 990;
@@ -113,7 +113,7 @@ class OrderController extends Controller
             $key = Yii::$app->request->post('key');
 
             $school = School::findOne(['key' => $key]);
-            if($school && $school->useable_count > 0) {
+            if ($school && $school->useable_count > 0) {
                 $order = new Order();
                 $order->name = $name;
                 $order->email = $email;
@@ -173,7 +173,7 @@ class OrderController extends Controller
     public function actionSend($id)
     {
         Yii::$app->response->format = Response::FORMAT_RAW;
-        if($order = Order::findOne($id)) {
+        if ($order = Order::findOne($id)) {
             $result = $order->getResult();
             try {
                 $mail = Yii::$app->mailer->compose('test/result', ['content' => $result['body']])
@@ -185,15 +185,14 @@ class OrderController extends Controller
                         $mail->attach(Yii::getAlias('@app/web') . $file);
                 }
                 if ($mail->send()) {
-                    echo 'Результат успешно отправлен на почту '. $order->email;
+                    echo 'Результат успешно отправлен на почту ' . $order->email;
                 } else {
                     echo 'Не удалось отправить сообщение';
                 }
             } catch (Swift_TransportException $e) {
-                echo 'Не удалось отправить сообщение: '.$e->getMessage();
+                echo 'Не удалось отправить сообщение: ' . $e->getMessage();
             }
-        }
-        else
+        } else
             echo 'Заказ не найден!';
     }
 }

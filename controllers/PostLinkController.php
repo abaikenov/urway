@@ -43,7 +43,7 @@ class PostLinkController extends Controller
                         $mail = Yii::$app->mailer->compose('test/result', ['content' => $result['body']])
                             ->setFrom('result@urway.kz')
                             ->setTo($order->email)
-                            ->setSubject('Результаты теста');
+                            ->setSubject(Yii::t('app', 'Test result'));
                         foreach ($result['files'] as $file) {
                             if (file_exists(Yii::getAlias('@app/web') . $file))
                                 $mail->attach(Yii::getAlias('@app/web') . $file);

@@ -122,4 +122,5 @@ return [
     'Invalid key!' => 'Не правильный ключ!',
     'Email must be match' => 'Email-ы должны совпадать',
     'Confirm Email' => 'Повторите Email',
+    'Test result' => 'Результаты теста',
 ];
