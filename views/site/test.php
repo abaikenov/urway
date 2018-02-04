@@ -153,7 +153,7 @@ use yii\helpers\Url;
                                    ng-model="$ctrl.order.key"
                                    required>
                         </div>
-                        <button type="button" ng-click="$ctrl.key()" class="startButton" style="width: 180px;"><?= Yii::t('app', 'Get result') ?></button>
+                        <button type="button" ng-click="$ctrl.key()" class="startButton" style="width: 180px; margin-bottom: 15px"><?= Yii::t('app', 'Get result') ?></button>
                         <button type="button" ng-click="$ctrl.payByKey = false" class="backButton"><?= Yii::t('app', 'Back') ?></button>
                     </div>
                 </form>
