@@ -138,11 +138,11 @@ use yii\helpers\Url;
                         <input type="hidden" name="BackLink" value="<?= Url::to(['test'], true) ?>"/>
                         <input type="hidden" name="FailureLink" value="<?= Url::to(['test'], true) ?>"/>
                         <input type="hidden" name="PostLink" value="<?= Url::to(['post-link/index'], true) ?>"/>
-                        <button type="button" ng-click="$ctrl.payment()"
+                        <button type="button" ng-click="$ctrl.payment()" style="margin-bottom: 15px"
                                 class="startButton"><?= Yii::t('app', 'Proceed to checkout') ?></button>
-                        <button type="button" ng-click="$ctrl.payByKey = true"
+                        <button type="button" ng-click="$ctrl.payByKey = true" style="margin-bottom: 15px"
                                 class="startButton"><?= Yii::t('app', 'I have key') ?></button>
-                        <button type="button" ng-click="$ctrl.backToResult()" ng-if="$ctrl.firstStageEnd"
+                        <button type="button" ng-click="$ctrl.backToResult()" ng-if="$ctrl.firstStageEnd" style="margin-bottom: 15px"
                                 class="backButton"><i class="fa fa-arrow-left icon"></i><?= Yii::t('app', 'Back') ?></button>
                         <p style="font-size: 14px" ng-if="$ctrl.firstStageEnd"><?= Yii::t('app', 'Также тест оплатить можно позже на этой же странице')?></p>
                     </div>

@@ -55,7 +55,7 @@ return [
     'Name:' => 'Аты:',
     'E-mail:' => 'E-mail:',
     'Repeat e-mail:' => 'E-mail қайталаңыз:',
-    'The payment is 990 tenge' => 'Жауаптын қуны 990 тенге',
+    'The payment is 990 tenge' => 'Жауаптын құны 990 тенге',
     'Proceed to checkout' => 'Төлеу',
     'Share' => 'Өз ойыңызбен бөлісіңіз',
     'Tell a friend about the test' => 'Өзімнің психологиялық портретіммен достарыммен бөлісу',
